@@ -17,6 +17,15 @@ namespace OpenTransfr{
 		public PropertyValue[] Set;
 		
 		
+		public PropertyValueSet(){}
+		
+		public PropertyValueSet(int size){
+			
+			// Create the set:
+			Set=new PropertyValue[size];
+			
+		}
+		
 		public override int GetID(){
 			return 6;
 		}
@@ -40,6 +49,32 @@ namespace OpenTransfr{
 				Set=newSet;
 				
 			}
+			
+		}
+		
+		/// <summary>Gets the nth property as a byte[] value.
+		/// Returns null if it was not a string.</summary>
+		public byte[] GetBytes(int index){
+			
+			if(index<0 || index>Set.Length){
+				
+				// Out of range!
+				return null;
+				
+			}
+			
+			// Get the bytes:
+			ByteArrayValue bytes=Set[index] as ByteArrayValue;
+			
+			if(bytes==null){
+				
+				// Not bytes!
+				return null;
+				
+			}
+			
+			// Got a bytes value:
+			return bytes.Value;
 			
 		}
 		

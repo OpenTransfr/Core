@@ -16,7 +16,7 @@ namespace OpenTransfr{
 	public class Transfer{
 		
 		/// <summary>Any additional metadata.</summary>
-		public Metadata Meta;
+		public KeyValueTable Meta;
 		/// <summary>The amount being transferred.</summary>
 		public ulong Balance;
 		/// <summary>The commodity being transferred.</summary>

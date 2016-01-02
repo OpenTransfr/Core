@@ -17,10 +17,10 @@ namespace OpenTransfr{
 	public class IssuerInfo{
 		
 		/// <summary>Information such as the nice name and public key.</summary>
-		public Metadata Meta;
+		public KeyValueTable Meta;
 		
 		
-		public IssuerInfo(Metadata meta){
+		public IssuerInfo(KeyValueTable meta){
 			
 			Meta=meta;
 			

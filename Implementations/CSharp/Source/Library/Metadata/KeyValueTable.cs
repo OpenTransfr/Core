@@ -10,17 +10,17 @@ using System.Collections.Generic;
 
 namespace OpenTransfr{
 	
-	/// <summary>Used when something interesting happens to some metadata.</summary>
-	public delegate void MetaEvent(Metadata data,string tag);
+	/// <summary>Used when something interesting happens to some key.</summary>
+	public delegate void MetaEvent(KeyValueTable data,string tag);
 	
 	/// <summary>
 	/// Represents the meta block found in e.g. transfers and root node overviews.
 	/// Meta holds a generic set of tags e.g. issuer or name etc, allowing for an easy extension point.
 	/// </summary>
 
-	public class Metadata{
+	public class KeyValueTable : PropertyValue{
 		
-		/// <summary>Writes an empty metadata block.</summary>
+		/// <summary>Writes an empty table.</summary>
 		public static void WriteEmpty(Writer writer){
 			
 			// Just a zero:
@@ -28,50 +28,67 @@ namespace OpenTransfr{
 			
 		}
 		
-		/// <summary>Loads a serialised metadata block.</summary>
-		public static Metadata LoadFrom(Reader sr){
+		/// <summary>Loads a serialised key value table.</summary>
+		public static KeyValueTable LoadFrom(Reader sr){
 			
 			// Create set:
-			Metadata result=new Metadata();
+			KeyValueTable result=new KeyValueTable();
 			
-			// # of tags:
-			int tagCount=(int)sr.ReadCompressed();
-			
-			for(int tag=0;tag<tagCount;tag++){
-				
-				// Firstly the key:
-				string key=sr.ReadString();
-				
-				// Then the value (which can be a set of values):
-				PropertyValue value=PropertyValues.ReadPropertyValue(sr);
-				
-				// Apply it:
-				result[key]=value;
-				
-			}
+			// Read it:
+			result.Read(sr);
 			
 			return result;
 		}
 		
-		/// <summary>The number of tags within this metadata.</summary>
+		/// <summary>The number of keys within this table.</summary>
 		public int Count{
 			get{
 				return Tags.Count;
 			}
 		}
 		
-		/// <summary>An event which is triggered when a meta tag is changed.</summary>
+		/// <summary>An event which is triggered when a value is changed.</summary>
 		public event MetaEvent OnChanged;
-		/// <summary>The raw set of tags within this metadata.</summary>
+		/// <summary>The raw set of tags within this table.</summary>
 		public Dictionary<string,PropertyValue> Tags;
 		
 		
-		/// <summary>Creates some empty metadata.</summary>
-		public Metadata(){
+		/// <summary>Creates some empty table.</summary>
+		public KeyValueTable(){
 			Tags=new Dictionary<string,PropertyValue>();
 		}
 		
-		/// <summary>Gets the number of 'endorsements' of whatever this meta represents.
+		public override int GetID(){
+			return 206;
+		}
+		
+		public override PropertyValue Create(){
+			return new KeyValueTable();
+		}
+		
+		public override PropertyValue Copy(){
+			
+			KeyValueTable value=new KeyValueTable();
+			
+			if(Tags!=null){
+				
+				// For each value:
+				foreach(KeyValuePair<string,PropertyValue> kvp in Tags){
+					
+					// Copy it too if it was non-null:
+					if(kvp.Value!=null){
+						value.Tags[kvp.Key]=kvp.Value.Copy();
+					}
+					
+				}
+				
+			}
+			
+			return value;
+			
+		}
+		
+		/// <summary>Gets the number of 'endorsements' of whatever this table represents.
 		/// E.g. a root node or a commodity. An endorsement is where a root node
 		/// signs the given message. This verifies the signatures.</summary>
 		public int GetEndorsements(Writer message){
@@ -86,7 +103,7 @@ namespace OpenTransfr{
 			
 		}
 		
-		/// <summary>Gets the number of 'endorsements' of whatever this meta represents.
+		/// <summary>Gets the number of 'endorsements' of whatever this table represents.
 		/// E.g. a root node or a commodity. An endorsement is where a root node
 		/// signs the given message. This verifies the signatures.</summary>
 		public int GetEndorsements(byte[] message,int length){
@@ -345,8 +362,28 @@ namespace OpenTransfr{
 			
 		}
 		
-		/// <summary>Writes out the metadata block to the given writer.</summary>
-		public void Write(Writer writer){
+		public override void Read(Reader sr){
+			
+			// # of tags:
+			int tagCount=(int)sr.ReadCompressed();
+			
+			for(int tag=0;tag<tagCount;tag++){
+				
+				// Firstly the key:
+				string key=sr.ReadString();
+				
+				// Then the value (which can be a set of values):
+				PropertyValue value=PropertyValues.ReadPropertyValue(sr);
+				
+				// Apply it:
+				this[key]=value;
+				
+			}
+			
+		}
+		
+		/// <summary>Writes out the table block to the given writer.</summary>
+		public override void Write(Writer writer){
 			
 			// # of tags:
 			writer.WriteCompressed((uint)Count);

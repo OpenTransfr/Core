@@ -19,10 +19,10 @@ namespace OpenTransfr{
 		/// <summary>The commodity ID.</summary>
 		public ulong ID;
 		/// <summary>Additional information such as the issuer and tag.</summary>
-		public Metadata Meta;
+		public KeyValueTable Meta;
 		
 		
-		public CommodityInfo(ulong id,Metadata meta){
+		public CommodityInfo(ulong id,KeyValueTable meta){
 			
 			ID=id;
 			Meta=meta;

@@ -19,10 +19,10 @@ namespace OpenTransfr{
 		/// <summary>The root node ID.</summary>
 		public ulong ID;
 		/// <summary>Additional information such as the nice name.</summary>
-		public Metadata Meta;
+		public KeyValueTable Meta;
 		
 		
-		public RootNodeInfo(ulong id,Metadata meta){
+		public RootNodeInfo(ulong id,KeyValueTable meta){
 			
 			ID=id;
 			Meta=meta;
