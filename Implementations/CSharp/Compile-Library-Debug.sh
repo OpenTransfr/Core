@@ -1,0 +1,1 @@
+csc /nologo /out:Build\Library\OpenTransfr.dll /target:library /recurse:Source\Library\* /debug /reference:Build\Library\BouncyCastle.Crypto.dll

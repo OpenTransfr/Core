@@ -1,0 +1,1 @@
+csc /nologo /out:Build\Standalone\transfr.exe /recurse:Source\* /reference:Build\Standalone\BouncyCastle.Crypto.dll
