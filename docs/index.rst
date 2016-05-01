@@ -11,7 +11,7 @@ This documentation describes the structure of all parts of the network in depth.
 Overview
 ========
 
-.. image:: images/1.png
+.. image:: images/Network-Overview.png
 
 At the heart of the network is a group of servers, each being a rootNode_, called the root - it's where the magic happens. A majority of those servers must all agree that a transaction is valid for it to go through. Issuers and tier 1 users connect up to the root to collect information and submit requests. Everyone else forms a tree of servers around the root, tier 1 onwards, to help spread load and to keep the root operating quickly. Anybody can be in that tree, however there are a few typical node types that will occur inside it.
 
