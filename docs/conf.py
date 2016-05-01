@@ -33,3 +33,5 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
 ]
+
+master_doc = 'index'
