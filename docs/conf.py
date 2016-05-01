@@ -4,7 +4,6 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
-    'repoze.sphinx.autointerface',
     'sphinxcontrib.programoutput',
     'sphinxcontrib.images',
 ]
