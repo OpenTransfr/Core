@@ -1,8 +1,8 @@
 # OpenTransfr
-OpenTransfr is a free, fast, anonymous and open payment network. There's no transaction fees, the network is distributed and it can perform transactions using any commodity such as existing currencies. Say hello to the future of payments.
+OpenTransfr is a free, fast and open payment network. There's no transaction fees, the network is distributed and it can perform transactions using any commodity such as existing currencies. Say hello to the future of payments.
 
 # Brief overview
-The OpenTransfr network is a little like DNS. In order to allow the network to scale and to ensure network safety, a hierarchy of distributed nodes is used. The root nodes are the most secure and well trusted systems on the network and they must agree in order for transactions to complete. They each contain a copy of all address balances along with about 5 days worth of transaction history. Broadcast nodes connect to the root nodes and repeat the transactions that were accepted by the root. Archive nodes store the full history of all transactions. Any node can submit a transaction request to the network. 
+The OpenTransfr network is a little like DNS. In order to allow the network to scale and to ensure network safety, a hierarchy of distributed nodes is used. The root nodes are the most secure and well trusted systems on the network and they must agree in order for transactions to complete. Transactions themselves are all based on a cryptocurrency system, ensuring top levels of security and trust. For more details on the networks structure, see the documentation at https://opentransfr.readthedocs.io/en/latest/
 
 # Appreciations
 OpenTransfr would like to thank the Bitcoin and Stellar communities, as well as the Legion of the Bouncy Castle for their excellent cryptography APIs. This network adopts concepts from both whilst attempting to improve on scalability and some of the fundamental trust issues. The notable differences are:
