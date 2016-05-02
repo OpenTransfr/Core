@@ -38,7 +38,7 @@ Entity Table
 
 .. image:: images/Entity-Table.png
 
-The entity table holds recognised organisations and their access level on the network. For example, if you create a new bank, a new entry shows up in this table.
+The entity table holds *recognised* organisations and their access level on the network. It's different from the ::ref:`username table<_usernameTable>` which represents anyone. For example, if you create a new bank, a new entry shows up in this table.
 
 :ID
     A unique number assigned to each entity. This is usually used by the balances table.
@@ -55,6 +55,24 @@ The entity table holds recognised organisations and their access level on the ne
 
 :Endpoint
     The endpoint that the bank API can be found at.
+
+.. _usernameTable:
+
+Username Table
+==============
+
+.. image:: images/Root-Username-Table.png
+
+The username table is mainly used as a way of receiving payments into a particular bank account. If you want someone to send you a payment (without using a ::ref`merchant terminal<_terminals>`), you tell them your username.
+
+:Username
+    The textual username itself. This can be anything. It's **not recommended** to use an email address.
+
+:Nice Name
+    A nice name of the company or person. This is used to help the person sending money be sure they're sending it to the right place.
+
+:Bank
+    The ID of the bank (in the entity table) which currently holds the account related to the username.
 
 .. _commoditiesTable:
 
