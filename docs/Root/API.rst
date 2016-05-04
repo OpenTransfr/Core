@@ -23,6 +23,12 @@ Root endpoints are the same as bank endpoints; they're simply a domain name and 
 
 txroot.provider.com
 
+The API for the above URL is located at:
+
+https://txroot.provider.com/v1/
+
+Note that root nodes *must not* provide the API over HTTP. If it receives a request over HTTP it *must not* redirect it; instead the root node should respond with a HTTP 400 Bad Request. 
+
 Submitting one or more transactions
 -----------------------------------
 
