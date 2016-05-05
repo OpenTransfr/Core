@@ -1,3 +1,26 @@
+.. _roots:
+
+Roots
+-----
+
+A root is defined as a collection of organisations which all contain a copy of the core information that operates the network. The information is primarily the following:
+
+- The balance table (a root specific set of all address balances)
+- The commodities table (a universal table of all available commodities and their issuer)
+- The username table (a universal table of unique usernames and their nice names)
+- The entity table (a universal table of primarily root nodes and trusted banks, along with which root they belong to). Tracks which root nodes have a link to an external root node.
+- The transaction table (the transactions from the last 5 days). Archive nodes store the full history.
+
+A root node is a single organisation within their root. For value to successfully transfer from one balance to another, root nodes must reach consensus; essentially an agreement that there are enough funds and it is not a fraudulent transaction. The consensus mechanism is described in the transaction section.
+
+.. _multipleRoots:
+
+Multiple Roots
+--------------
+
+Reaching consensus requires a group of root nodes to communicate with each other. Each transaction triggers 3 messages between a receiving root node and all the other root nodes in the group. For example, if there are 10 root nodes, then (10 - 1) * 3, 27, messages are exchanged. All users must be equally represented, so latency caused by geopolitics would quickly become a major issue. To solve this, multiple roots are required.
+Trusted financial organisations from large geopolitical bloc's collectively host the bloc's root. Roots communicate with each other when an external transaction occurs - essentially one which transfers value from one root to another. Such a system scales well into the future; for example, in the event that a Mars colony is created within the next decade, that colony would be able to operate it's own root which can, in turn, communicate with the roots back on Earth. In essence, the only transactions that would be heavily affected by latency are ones which move value from one planet to another.
+
 
 .. rootNode:
 
