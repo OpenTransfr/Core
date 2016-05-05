@@ -1,4 +1,4 @@
-.._transactions:
+.. _transactions:
 
 Transactions
 ------------
