@@ -8,7 +8,7 @@ The network has a built in exchange called OpenExchange or just OPEX for short. 
 How it works
 ------------
 
-To prevent there being potentially millions of pairs of commodities, everything exchanges through a central commodity (at the moment, USD) to keep things flowing fast. This means exchanges occur in two 'hops' (e.g. for a GBP <-> EUR exchange the hops are GBP->USD, USD->EUR) and the matchings may still take a few minutes to be paired with something going the other way though, so exchanges are intended to be done 'offline' rather than during a transaction. Note that the exchange is not used when you happen to be *buying* another commodity - for example, buying shares with GBP.
+To prevent there being potentially millions of pairs of commodities, everything exchanges through a central commodity (at the moment, USD) to keep things flowing fast. This means exchanges occur in two 'hops' (e.g. for a GBP <-> EUR exchange the hops are GBP<->USD, USD<->EUR) and the matchings may still take a few minutes to be paired with something going the other way though, so exchanges are intended to be done 'offline' rather than during a transaction. Note that the exchange is not used when you happen to be *buying* another commodity - for example, buying shares with GBP.
 
 Rates
 -----
@@ -28,4 +28,4 @@ Exchange requests provide a 0-1 value which notes how long they're willing to wa
 Operation
 ---------
 
-Currently OpenExchange is the only thing on the network operated by a single entity. This will change in the future as it moves to a distributed setup.
+Currently OpenExchange is the only thing on the network operated by a single entity. This will change in the future as it moves to a distributed setup, being instead hosted by existing exchanges around the world.
