@@ -34,13 +34,34 @@ Root Node Operators
 
 Operating a root node will be restricted to trusted financial organisations only to ensure that the root remains entirely trustworthy at all times. Typically this would be large banks and central banks. Each organisation can only run one root node (but it can involve multiple machines) so no single organisation is a bigger target than another and so every organisation has the same voting power.
 
+Joining as a root node
+----------------------
+
+To become a root node, you'll need to:
+
+1. Create an `entity`_ (note: registered banks have already done this).
+2. Check that your domain registrar is not used by more than 20% of the root you wish to join. `More info<_rootNodeDns>`_.
+3. Petition the root you wish to join. You must petition the root which is geographically closest.
+4. Other root nodes will vote for you to join using the `root voting system<rootVoting>`_.
+5. If you obtain a majority, congratulations! You are now an authorised root node. In general, roots should be no larger than 30 nodes and no smaller than 3.
+
 Root Node Safety
 ----------------
 
 Root nodes are extremely resiliant. A root node can be entirely hacked, taken offline or be situated in a natural disaster and the network will continue to function correctly. This is because:
+
 - Transaction requests must have majority
-- There are multiple precautions to prevent any single organisation accidentally providing a hacker with an instant majority. This includes DNS registrars as well as DNS registries like .com itself.
-- There are multiple root nodes all syncing data, so there is never any data loss when one goes down.
+- There are multiple precautions to prevent any single organisation accidentally providing a hacker with an instant majority. This includes `DNS registrars<rootNodeDns>`_ as well.
+- There are multiple root nodes all syncing the same data, so there is never data loss when one goes down.
+
+.. _rootNodeDns:
+
+Root Nodes and Domain Registrars
+--------------------------------
+
+DNS is typically the weakpoint, so in order to maximise safety more than 20% of root nodes can't share the same registrar. Although a domain registrar hack does not inherently weaken the root (as a hacker would need the private keys in order to fully impersonate a root node), it allows a hacker to proxy a root node. However, a hacker proxying a root node is no different than the same hacker simply joining the network in Tier 1. A hacker would have to both proxy a majority of the root and obtain a majority of the private keys in order to successfully infiltrate a root. This therefore requires a hacker to infiltrate at least 3 registrars and steal private keys from the root nodes themselves. Assuming most banks and registrars have good security, obtaining even one of these keys should be prohibitively difficult.
+
+.. _rootVoting:
 
 Root Voting
 -----------
