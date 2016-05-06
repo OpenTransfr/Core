@@ -58,7 +58,7 @@ This error occurs when a user asked an issuer to issue a commodity that it does 
 
 This error occurs if a field is either malformed (for example, receiving a string when a number is expected etc) or a required field is missing.
 
-Once the user has obtained a token, they can then either use the visual `issue.options API` or trigger a transaction some other way, for example, manually creating a PayPal transaction using the token as the payment reference. This depends on what options are provided by the issuer.
+Once the user has obtained a token, they can then either use the `issue.visual API`_ or trigger a transaction some other way, for example, manually creating a PayPal transaction using the token as the payment reference. This depends on what options are provided by the issuer.
 
 issue.options/{commodity tag}
 -----------------------------
