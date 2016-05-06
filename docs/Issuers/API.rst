@@ -1,7 +1,7 @@
 Standard Issuer API
 ===================
 
-Note: This is included in the Standard Bank API but is only active if the endpoint issues one or more commodities.
+Note: This is included in the Standard Bank API but is only active if the endpoint issues one or more commodities. There are two main flows here, depending on how a user wishes to use the API. If a user wishes to entirely automate issuing, they can obtain a token and use it as a reference elsewhere. For most normal cases though, a consumer is present for issuing, in which case the visual API is used instead.
 
 issue.token
 -----------
