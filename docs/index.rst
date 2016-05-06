@@ -48,7 +48,7 @@ Here's the process that got the design of OpenTransfr to where it is today:
 - Cryptocurrencies have a lot of excellent properties which must be kept. The security, the transparency and the anonymity are all ideal. So, we start from a cryptocurrency design and build up from there.
 - Blockchain has failed, so let's remove that.
 - The consensus system has failed too, so we'll replace that as well.
-- The network needs to work for everyone, so we want some regulation, but not too much, and it has to be trustworthy. The network should be allowed to grow and evolve as new and exciting ideas appear.
+- The network needs to work for everyone, so we want some regulation, but not too much (we don't want Governments to see everything you bought, for example, but we do want them to have something against things like tax evasion), and it has to be trustworthy. The network should be allowed to grow and evolve as new and exciting ideas appear.
 - Abstract off addresses with a username.
 - It needs to be a singular network that can transfer anything so it can work with all existing commodities.
 - If there's no blockchain then we'll need a new way of introducing value into the network.
