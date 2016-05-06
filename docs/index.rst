@@ -35,10 +35,3 @@ Commodity Tag
 -------------
 
 Commodities are neatly organised into groups to help clearly see what it is. For example 'currency.usd' is the US Dollar. 'shares.nyse.goog' refers to shares of Google on the New York Stock Exchange. Each commodity also has a unique number which is used internally on the network. When needed, the edges of the network simply swap the tag with the number before submitting requests.
-
-.. _issuer:
-
-Issuer
-======
-
-Issuers define a commodity and issue them onto the network. There is only ever *one issuer per commodity*. This is so it can guarentee a withdrawal from the network, but more on that later. Usually, anyone can be an issuer but there are some special exceptions. For example, traditional currencies are restricted - the central bank that normally issues the currency decides who issues it on the network. In most cases, the central bank itself is the best issuer. However, you can create your own virtual currency or commodity and issue it however you want.
