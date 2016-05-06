@@ -5,6 +5,16 @@ Issuer
 
 Issuers define a commodity and issue them onto the network. There is only ever *one issuer per commodity*. This is so it can guarentee a withdrawal from the network, but more on that later. Usually, anyone can be an issuer but there are some special exceptions. For example, traditional currencies are restricted - the central bank that normally issues the currency decides who issues it on the network. In most cases, the central bank itself is the best issuer. However, you can create your own virtual currency or commodity and issue it however you want.
 
+Issuing Vouchers
+----------------
+
+Vouchers are considered a form of commidity too which allows them to sit in a users bank account. This avoids the need for merchants to implement an account balance system. Vouchers use the same token system as other forms of issuing, and they essentially work as follows:
+
+- Voucher purchaser performs a transfer to the voucher issuer
+- The voucher issuer responds with a token (Essentially the voucher itself). This token would most likely be printed.
+- The claimer calls the redeem API with a public key to claim into and their token
+- The issue then occurs into the given public key
+
 Anonymous issuing
 -----------------
 
