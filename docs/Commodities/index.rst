@@ -35,6 +35,9 @@ The proposed main top-level tags are listed here. An up-to-date version can be o
 :substance
     Physical substances such as gold, silver, oil or plastics. Example: 'substance.plastic.pete'
 
+:voucher
+    Unrestricted. Represents any form of redeemable voucher/ gift card. Used when the receiving username is unknown or a physical gift is wanted. Example: 'voucher.itunes.currency.gbp' represents a pound sterling iTunes voucher. If the user requests for, for example, 'voucher.itunes' their preferred currency is appended onto the end (provided the voucher issuer has a sub-tag which matches). The merchant then simply accepts 'voucher.itunes' as well as 'currency'.
+
 :shares
     Shares in a public or private company. Example: 'shares.lse.ba'
 
