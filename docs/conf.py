@@ -35,3 +35,7 @@ extensions = [
 ]
 
 master_doc = 'index'
+
+# General information about the project.
+project = u'OpenTransfr'
+copyright = u'2016, OpenTransfr Project'
