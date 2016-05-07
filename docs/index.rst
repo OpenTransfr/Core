@@ -30,13 +30,14 @@ Why not use cryptocurrencies out of the box?
 First and foremost, cryptocurrencies have changed everything. Their existing setup can just be considered version 1 in an ever evolving financial system. In case you haven't been following, Bitcoin is having some extremely widespread problems. Here's just a few of them:
 
 - It was built under the assumption that no-one will gain a 'majority', however, a Chinese-lead group has managed to do exactly that.
-- Anyone who creates a powerful computer can overtake the blockchain and entirely replace it with fake information.
+- Anyone who holds a majority (or creates a powerful computer to instantly get a majority) can overtake the blockchain and entirely replace it with fake information.
 - The currency itself is extremely volatile
 - Shrouded in legal problems because of a total lack of regulation. As a result, banks naturally hate it.
 - Blockchain systems waste far too much energy
 - Addresses look too complicated for consumers
 - People keep loosing their private keys and as a result, permanently loosing access to their value.
 - Blockchain has fundamentally slow transaction speeds. A Bitcoin transaction can take anywhere from 10 minutes to a whole day as the network throughput is seemingly maxing out at 1 transaction per second.
+- Current cryptocurrency systems essentially completely fail to scale, particularly where high latency links are introduced as the entire network slows down to suit them.
 
 For more information, there's an excellent blog by a previous Bitcoin developer here: https://medium.com/@octskyward/the-resolution-of-the-bitcoin-experiment-dabb30201f7#.7tweula3q
 
@@ -48,7 +49,7 @@ Here's the process that got the design of OpenTransfr to where it is today:
 - Cryptocurrencies have a lot of excellent properties which must be kept. The security, the transparency and the anonymity are all ideal. So, we start from a cryptocurrency design and build up from there.
 - Blockchain has failed, so let's remove that.
 - The consensus system has failed too, so we'll replace that as well.
-- The network needs to work for everyone, so we want some regulation, but not too much (we don't want Governments to see everything you bought, for example, but we do want them to have something against things like tax evasion), and it has to be trustworthy. The network should be allowed to grow and evolve as new and exciting ideas appear.
+- The network needs to work for everyone, so we want some regulation, but not too much (we don't want Governments to see everything you bought, for example, but we do want them to have something against things like criminal activity), and it has to be trustworthy. The network must be allowed to grow and evolve as new and exciting ideas appear.
 - Abstract off addresses with a username.
 - It needs to be a singular network that can transfer anything so it can work with all existing commodities.
 - If there's no blockchain then we'll need a new way of introducing value into the network.
