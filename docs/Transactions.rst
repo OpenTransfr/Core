@@ -36,6 +36,12 @@ This is the flow of a transaction from one root to another.
 
 In the event of a link failure, the sending root tries again, with a flag stating that this transaction is being repeated. If this flag is set, the remote root checks to see if the same transaction had been processed before by looking it up in it's transaction history. If it had been processed before, the remote root simply informs that the transaction has been completed.
 
+.. _ecdsaRandom:
+
+Random Numbers
+--------------
+
+Although it's a fairly moot point, you **must** ensure that your random number generator actually works rather than simply returning the same value repeatedly. ECDSA requires a random number during the signing process. It is possible to recover the private key from two signatures (the data signed doesn't matter) if they shared the same random number. Even relatively weak random number generators are incredibly unlikely to produce the same number twice due to the sheer size of the numbers involved, so long as it actually returns a new number. For more information on this hack, see this great article http://www.nilsschneider.net/2013/01/28/recovering-bitcoin-private-keys.html and how the hack was applied to the PS3 https://events.ccc.de/congress/2010/Fahrplan/attachments/1780_27c3_console_hacking_2010.pdf.
 
 .. _addrClaim:
 
