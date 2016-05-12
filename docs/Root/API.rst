@@ -21,36 +21,17 @@ Root endpoint
 
 Root endpoints are the same as bank endpoints; they're simply a domain name and are typically of the form:
 
-txroot.provider.com
+txroot.example.com
 
 The API for the above URL is located at:
 
-https://txroot.provider.com/v1/
+https://txroot.example.com/v1/
 
 Note that root nodes *must not* provide the API over HTTP. If it receives a request over HTTP it *must not* redirect it; instead the root node should respond with a HTTP 400 Bad Request. 
 
-Submitting one or more transactions
------------------------------------
+API Functionality
+-----------------
 
-:Method
-    HTTP POST
+The API is designed to be self documenting, meaning the API directly exposes the functions available and provides examples on how they are used, as well as defining the types that it can generate or use. An example implementation of the API can be found at:
 
-:Content-Type
-    text/json
-
-:URL
-    https://{endpoint}/v1/send-transactions
-
-The following is an example of a transaction which you post to the above URL. It's a variant of JWS JSON:
-
-{
-    "header":{
-        "from":"15uLuCwxaxkghAd7nNUAgccZWEk418wFJQ@EUR"
-    },
-    "protected":"..",
-    "payload":"..",
-    "signature":".."
-}
-
-:from
-    The full address of the balance that the transaction is coming from. The payload and protected header is signed with the private key of this address.
+https://txroot.opentrans.fr/v1/
