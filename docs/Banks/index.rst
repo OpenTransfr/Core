@@ -33,7 +33,7 @@ The data to sign is as follows:
 3. Sort alphabetically
 4. JSON stringify the set with no spaces or tabs. The result looks like this (with complete IPs):
 
-'["178.232..","178.233..",""2a03:b0c0:.."]' // Sign this string with your private entity key.
+'["178.232..","178.233..","2a03:b0c0:.."]' // Sign this string with your private entity key.
 
 Anyone wishing to verify the signature can perform the same steps as above and use your public entity key.
 
