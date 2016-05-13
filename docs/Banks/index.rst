@@ -19,6 +19,23 @@ Internally the join process works like this:
 
 At this point the entity is **not certified**. These banks may join the network for testing purposes, however consumers will be clearly notified that the bank they are using is not regulated.
 
+Signing your DNS
+----------------
+
+It's very easy to forge DNS records. In order to prevent your DNS from being either hacked and changed or records being changed in-flight by untrusted proxies, it's highly recommended to provide a signature in your DNS. To do this, add a TXT record at your endpoint with the following:
+
+opentx sig:{base64 encoded signature}
+
+The data to sign is as follows:
+- Get all your IP and IPV6 address records
+- Treat the addresses as strings 'as-is' on the records
+- Sort alphabetically
+- JSON stringify the set with no spaces or tabs. The result looks like this (with complete IPs):
+
+'["178.232..","178.233..",""2a03:b0c0:.."]' // Sign this string with your private entity key.
+
+Anyone wishing to verify the signature can perform the same steps as above and use your public entity key.
+
 Editing Contact Details
 -----------------------
 
