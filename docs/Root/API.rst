@@ -27,7 +27,7 @@ The API for the above URL is located at:
 
 https://txroot.example.com/v1/
 
-Note that root nodes *must not* provide the API over HTTP. If it receives a request over HTTP it *must not* redirect it; instead the root node should respond with a HTTP 400 Bad Request. 
+Note that root nodes *must not* provide the API over HTTP. If it receives a request over HTTP it *must not* redirect it; instead the root node should respond with a HTTP 400 Bad Request. The API should have the CORS HTTP header "Access-Control-Allow-Origin: *", however, it is not required.
 
 API Functionality
 -----------------
