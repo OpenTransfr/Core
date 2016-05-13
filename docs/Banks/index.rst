@@ -37,6 +37,8 @@ The data to sign is as follows:
 
 Anyone wishing to verify the signature can perform the same steps as above and use your public entity key.
 
+A Javascript implementation is available at https://txroot.opentrans.fr/v1/dev. Pop open the console, load your private key with loadKey("hex_key") or generate one for testing with generateKey(), then call signIPs("your.domain.com").
+
 Editing Contact Details
 -----------------------
 
