@@ -27,10 +27,11 @@ It's very easy to forge DNS records. In order to prevent your DNS from being eit
 opentx sig:{base64 encoded signature}
 
 The data to sign is as follows:
-- Get all your IP and IPV6 address records
-- Treat the addresses as strings 'as-is' on the records
-- Sort alphabetically
-- JSON stringify the set with no spaces or tabs. The result looks like this (with complete IPs):
+
+1. Get all your IP and IPV6 address records
+2. Treat the addresses as strings 'as-is' on the records
+3. Sort alphabetically
+4. JSON stringify the set with no spaces or tabs. The result looks like this (with complete IPs):
 
 '["178.232..","178.233..",""2a03:b0c0:.."]' // Sign this string with your private entity key.
 
