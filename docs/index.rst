@@ -3,8 +3,10 @@ Welcome to the OpenTransfr network documentation!
 
 This documentation describes the structure of all parts of the network in depth. Please note that it is very much a work in progress and the design will regularly change during this process until it is marked as stable.
 
-.. contents:: Table of Contents
+.. toctree::
+   :maxdepth: 2
    :local:
+   Components
 
 .. _overview:
 
