@@ -11,3 +11,4 @@ Network Components
    Banks/index.rst
    Root/index.rst
    Exchange/index.rst
+   Merchants/index.rst
