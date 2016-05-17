@@ -81,3 +81,16 @@ Now we've got some of the baseline requirements, the network design is summarise
 The end results of the above are a network which is trustworthy, open, more secure than existing systems, distributed yet able to scale (because root is intended to be small groups of organisations and scaling problems would otherwise happen with the 'majority consensus' aspect) and built on a cryptographic guarentee.
 
 For more detail on individual components, such as roots, issuers or commodities etc, see their related documentation.
+
+'Free'?
+-------
+
+OpenTransfr itself does not charge any fees or define any form of interchange fee. However, particularly American banks are used to receiving an interchange fee on transfers, so:
+
+- Merchant prices almost always include the transaction fees that they pay. So, it's recommended for merchants to provide a small discount for users paying using this network. The merchant still saves money as they don't need any form of monthly payments to a gateway service or any form of custom hardware.
+- The sending bank is able to charge a self-defined fee if they wish, although it's not recomended. These fees can only be defined as a % with a set limit which rounds down. For example, "0.12% up to £1". This fee is taken out of the discount.
+- From the consumers point of view, they see a discount of approximately 2% by using this network.
+
+Traditionally, security is the main reason given for fees. As this network is based upon cryptocurrencies and card details never pass through a merchant, the security aspect is a non-issue. An attacker can gain control of a root node without being able to compromise the system.
+
+By dropping the network fees to zero, a considerable amount of friction is removed from the financial system allowing banks to directly compete with each other and, ideally, get their self-defined fee down to zero too over time. As the transaction volume and bank reserves would be notably higher (i.e. as less people are physically withdrawing cash and moving it in person) banks would be able to quite easily replace that revenue stream through increasing their more traditional investment/ loan stream. In summary, more control to banks, consumers and merchants in an economy that's moving faster than ever.
