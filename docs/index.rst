@@ -5,7 +5,9 @@ This documentation describes the structure of all parts of the network in depth.
 
 .. contents:: Table of Contents
    :local:
-   Components.rst
+
+.. toctree::
+   Components
 
 .. _overview:
 
