@@ -1,7 +1,7 @@
 .. _transactions:
 
 Transactions
-------------
+============
 
 Transactions are of course the primary function of the network. All transactions start the same way, and can potentially take one of two paths depending on if the transaction remains within a root (internal) or goes between two roots (external).
 
