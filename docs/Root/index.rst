@@ -1,7 +1,7 @@
 .. _roots:
 
 Roots
------
+=====
 
 A root is defined as a collection of organisations which all contain a copy of the core information that operates the network. The information is primarily the following:
 
