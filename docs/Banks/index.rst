@@ -8,7 +8,7 @@ A bank is the consumer facing organisation that holds a users bank accounts. All
 Setting up a bank
 -----------------
 
-In order to become a bank on the network, at a minimum, you need a domain name that you can prove is yours. Contact information is obtained via WHOIS which can then be edited later. An implementation of the bank creation process can be found at https://en.opentrans.fr/bank.create
+In order to become a bank on the network, at a minimum, you need a domain name that you can prove is yours. Contact information is obtained via WHOIS which can then be edited later. A simple UI for the bank creation process can be found at https://txroot.opentrans.fr/ui#screen=entity.create
 
 Internally the join process works like this:
 
