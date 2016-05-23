@@ -82,6 +82,15 @@ The end results of the above are a network which is trustworthy, open, more secu
 
 For more detail on individual components, such as roots, issuers or commodities etc, see their related documentation.
 
+Reference Implementations
+-------------------------
+The network has multiple components which have working implementations at the following locations:
+
+- https://bank.opentrans.fr/. OpenBank; an example of a bank with OpenTransfr capabilities.
+- https://txroot.opentrans.fr/. OpenTransfr root node; an example of a root node on the network.
+- https://pay.opentrans.fr/. OpenPay Merchant Services; an example of a merchant service which accepts payments on the network.
+- https://issuer.opentrans.fr/. OpenIssuer; an example of a commodity issuer (typically a Central Bank role). Sample coming shortly.
+
 'Free'?
 -------
 
