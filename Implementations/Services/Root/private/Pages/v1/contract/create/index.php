@@ -1,0 +1,5 @@
+<?php
+
+// Contract create API.
+
+?>

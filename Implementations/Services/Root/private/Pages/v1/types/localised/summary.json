@@ -1,0 +1,69 @@
+{
+	"type":"type",
+	"description":{
+		"en":"Defines a set of text. One for each language directly supported by the API.",
+		"de":"Definiert einen Satz von Text. Eine für jede Sprache direkt von der API unterstützt.",
+		"fr":"Définit un ensemble de texte. Un pour chaque langue directement pris en charge par l'API.",
+		"it":"Definisce un insieme di testo. Uno per ogni lingua direttamente supportati dalle API.",
+		"es":"Define un conjunto de texto. Uno para cada idioma directamente soportados por la API."
+	},
+	"content":{
+		"en":{
+			"type":"string",
+			"description":{
+				"en":"The text in English.",
+				"de":"Der Text in Englisch.",
+				"fr":"Le texte en Anglais.",
+				"it":"Il testo in Inglese.",
+				"es":"El texto en Inglés."
+			}
+		},
+		"de":{
+			"type":"string",
+			"description":{
+				"en":"The text in German.",
+				"de":"The text in Deutsch.",
+				"fr":"Le texte en Allemand.",
+				"it":"The text in Tedesco.",
+				"es":"The text in Alemán."
+			}
+		},
+		"fr":{
+			"type":"string",
+			"description":{
+				"en":"The text in French.",
+				"de":"Der Text in Französisch.",
+				"fr":"Le texte en Français.",
+				"it":"Il testo in Francese.",
+				"es":"El texto en Francés."
+			}
+		},
+		"it":{
+			"type":"string",
+			"description":{
+				"en":"The text in Italian.",
+				"de":"Der Text in Italienisch.",
+				"fr":"Le texte en Italien.",
+				"it":"Il testo in Italiano.",
+				"es":"El texto en Italiano."
+			}
+		},
+		"es":{
+			"type":"string",
+			"description":{
+				"en":"The text in Spanish.",
+				"de":"Der Text in Spanisch.",
+				"fr":"Le texte en Espanol.",
+				"it":"Il testo in Spagnolo.",
+				"es":"El texto en Español."
+			}
+		}
+	},
+	"example":{
+		"en":"Hello!",
+		"de":"Hallo!",
+		"fr":"Bonjour!",
+		"it":"Ciao!",
+		"es":"¡Hola!"
+	}
+}

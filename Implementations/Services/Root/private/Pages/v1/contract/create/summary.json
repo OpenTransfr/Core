@@ -1,0 +1,13 @@
+{
+	"description":{
+		"en":"Creates a new contract."
+	},
+	"request":{
+		"headers":{
+			"Content-Type":"application/json"
+		},
+		"post":{
+			
+		}
+	}
+}

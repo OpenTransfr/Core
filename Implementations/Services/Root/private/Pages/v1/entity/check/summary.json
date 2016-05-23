@@ -1,0 +1,21 @@
+{
+	"description":{
+		"en":"Primarily used to test if your own DNS has been tampered with. Responds with the IP's for a given entity. If your DNS lookup doesn't match, then DNS results are likely being forged."
+	},
+	"request":{
+		"headers":{
+			"Content-Type":"application/json"
+		},
+		"post":{
+			"entity":{
+				"type":"string",
+				"description":{
+					"en":"The entity that you'd like to test."
+				}
+			}
+		}
+	},
+	"example":{
+		"entity":"bank.opentrans.fr"
+	}
+}

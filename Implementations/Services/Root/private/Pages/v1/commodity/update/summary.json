@@ -1,0 +1,65 @@
+{
+	"description":{
+		"en":"Updates a commodities information such as its common name or divisions."
+	},
+	"request":{
+		"headers":{
+			"Content-Type":"application/json"
+		},
+		"post":{
+			"type":"types/jws",
+			"signer":"The issuer.",
+			"payload":{
+				"tag":{
+					"type":"string",
+					"description":{
+						"en":"The commodity tag that you'd like to update."
+					}
+				},
+				"issuer":{
+					"type":"string",
+					"optional":true,
+					"description":{
+						"en":"The endpoint of a new issuer. Use this to hand over issuing to some other issuer."
+					}
+				},
+				"policy":{
+					"type":"string",
+					"optional":true,
+					"description":{
+						"en":"Change the policy it uses. 'closed', 'public' or 'reviewed'."
+					}
+				},
+				"divisor":{
+					"type":"number",
+					"optional":true,
+					"description":{
+						"en":"Change the divisor setting. Balances are divided by this number for displaying. Most of the time this is 1 except for currencies. This is because internally balances can only be whole numbers. So, for example, GBP (British pound sterling) is stored in terms of pennies. A divisor of 100 displays those 100 pennies as 1.00 GBP."
+					}
+				},
+				"name":{
+					"type":"types/localised",
+					"optional":true,
+					"description":{
+						"en":"The name of the commodity. At the moment provide just 'en' (English)."
+					}
+				},
+				"description":{
+					"type":"types/localised",
+					"optional":true,
+					"description":{
+						"en":"The description of the commodity. At the moment provide just 'en' (English)."
+					}
+				}
+			}
+		},
+		"example":{
+			"header":{
+				"entity":"bank.of.gt"
+			},
+			"payload":"ewoJInRhZyI6InZpcnQuY3VycmVuY3kuZ3RncGUiLAoJImRlc2NyaXB0aW9uIjp7CgkJImVuIjoiVGhlIGN1cnJlbmN5IG9mIEdhbGF0cm9waXMiCgl9Cn0=",
+			"protected":"",
+			"signature":"(Signature using bank.of.gt's private key)"
+		}
+	}
+}

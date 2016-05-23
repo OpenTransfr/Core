@@ -1,0 +1,56 @@
+{
+	"type":"type",
+	"description":{
+		"en":"A slightly non-standard JSON Web Signature object. They are non-standard because they do not contain the jwk or alg headers; instead the public key is sent only once e.g. during entity creation."
+	},
+	"content":{
+		"header":{
+			"type":"object",
+			"description":{
+				"en":"The unprotected header. Does not contain 'jwk' or 'alg'. See the JWS specification for more details."
+			},
+			"content":{
+				"entity":{
+					"type":"string",
+					"optional":true,
+					"description":{
+						"en":"The endpoint of the entity that signed this JWS, e.g. 'bank.opentrans.fr'. The public key is taken from the entity table to verify the signature. Used much more often than 'pk' as it essentially authenticates an entity at the same time as well as being more compact."
+					}
+				},
+				"pk":{
+					"type":"string",
+					"optional":true,
+					"description":{
+						"en":"Instead of entity, a hex public key can be given. This is relatively rarely used as authenticating as an entity is typically required. An example of a situation where it is used is creating a new entity; the entity/create API."
+					}
+				}
+			}
+		},
+		"payload":{
+			"type":"types/base64json",
+			"description":{
+				"en":"The protected payload. See the JWS specification for more details."
+			}
+		},
+		"protected":{
+			"type":"types/base64json",
+			"description":{
+				"en":"The protected header. See the JWS specification for more details."
+			}
+		},
+		"signature":{
+			"type":"string",
+			"description":{
+				"en":"The signed payload and protected header. Signing input is the same as the JWS specification ( simply the protected header and payload stuck together with a ., i.e: base64 header + '.' + base64 payload ). The signature function is the same as Bitcoin; sha256 the input twice then ECDSA sign using a secp256k1 private key."
+			}
+		}
+	},
+	"example":{
+		"header":{
+			"entity":"bank.opentrans.fr"
+		},
+		"protected":"eyJ1c2VyYW1lIjoib3BlbnRyYW5zZnIifQ==",
+		"payload":"eyJuaWNlbmFtZSI6Ik9wZW5UcmFuc2ZyIEx0ZCJ9",
+		"signature":"(JWS signature using the private key of 'bank.opentrans.fr'. The correct double sha256 is 'yN6HczqIO2iuKyonRwc0Mz19V+m/G0rT1a9F286QsNY=' in Base64)"
+	}
+}

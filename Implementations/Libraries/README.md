@@ -1,0 +1,2 @@
+# Libraries - what are they?
+These libraries can access any of the API's. For example, you can use these libraries to submit a transaction request to your bank, or the bank can use them to submit a request to root. If you want to *host* an API, take a look at the Implementations/Services directory.

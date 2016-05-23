@@ -1,0 +1,60 @@
+{
+	"description":{
+		"en":"Creates a new commodity. Note that these are almost always submitted by the owner of a parent tag. See 'signer' for more information."
+	},
+	"request":{
+		"headers":{
+			"Content-Type":"application/json"
+		},
+		"post":{
+			"type":"types/jws",
+			"signer":"The owner of the parent tag signs the request. For example, if you want to issue 'virt.currency.abc', the issuer of 'virt.currency' signs (and typically submits) the request.",
+			"payload":{
+				"tag":{
+					"type":"string",
+					"description":{
+						"en":"The commodity tag that you'd like to begin issuing."
+					}
+				},
+				"issuer":{
+					"type":"string",
+					"description":{
+						"en":"The endpoint of the issuer."
+					}
+				},
+				"policy":{
+					"type":"string",
+					"description":{
+						"en":"The policy that the commodity will follow whilst issuing sub-commodities. 'public' (freely allows sub-commodities), 'closed' (doesn't issue sub-commodities), 'reviewed' (issues sub-commodities after an automated/manual review. May require a payment.)"
+					}
+				},
+				"divisor":{
+					"type":"number",
+					"description":{
+						"en":"Balances are divided by this number for displaying. Most of the time this is 1 except for currencies. This is because internally balances can only be whole numbers. So, for example, GBP (British pound sterling) is stored in terms of pennies. A divisor of 100 displays those 100 pennies as 1.00 GBP."
+					}
+				},
+				"name":{
+					"type":"types/localised",
+					"description":{
+						"en":"The name of the commodity. At the moment provide just 'en' (English)."
+					}
+				},
+				"description":{
+					"type":"types/localised",
+					"description":{
+						"en":"The description of the commodity. At the moment provide just 'en' (English)."
+					}
+				}
+			}
+		},
+		"example":{
+			"header":{
+				"entity":"bank.opentrans.fr"
+			},
+			"payload":"ew0KCSJ0YWciOiJ2aXJ0LmN1cnJlbmN5Lmd0Z3AiLA0KCSJpc3N1ZXIiOiJiYW5rLm9mLmd0IiwNCgkiZGl2aXNvciI6MTAwLA0KCSJuYW1lIjp7DQoJCSJlbiI6IkdhbHVuaSBQaWVjZXMiDQoJfSwNCgkiZGVzY3JpcHRpb24iOnsNCgkJImVuIjoiVGhlIHZpcnR1YWwgY3VycmVuY3kgb2YgR2FsYXRyb3BpcyINCgl9DQp9",
+			"protected":"",
+			"signature":"(Signature of 'protected.payload' using bank.opentrans.fr's private key. This is because bank.opentrans.fr is the current owner of the parent 'virt.currency' tag)"
+		}
+	}
+}

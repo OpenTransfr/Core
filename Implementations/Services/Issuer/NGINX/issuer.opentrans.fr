@@ -1,0 +1,54 @@
+server{
+listen 80;
+ server_name issuer.opentrans.fr;
+
+ location /.well-known {
+	
+	root /var/www/ssl-challenges/public;
+	try_files $uri $uri/ index.php?$query_string;
+	
+ }
+ 
+ location / {
+	return 301 https://$server_name$request_uri;
+ }
+ 
+}
+
+server {
+listen 443 ssl;
+ssl_certificate /path/to/ssl/cert.pem;
+ssl_certificate_key /path/to/ssl/privkey.pem;
+
+charset utf-8;
+root /var/www/issuer.opentrans.fr/public;
+index index.html index.php;
+error_log /dev/null;
+access_log /var/www/issuer.opentrans.fr/logs/access.log;
+
+server_name issuer.opentrans.fr www.issuer.opentrans.fr *.issuer.opentrans.fr;
+
+location / {
+	
+	gzip_static on;
+	expires max;
+	add_header Cache-Control public; 
+	
+	try_files $uri $uri/ /index.php?$query_string;
+	
+}
+
+error_page 404 /error.html;
+
+error_page 500 502 503 504 /error.html;
+
+location ~ \.php$ {
+	try_files $uri index.php?$query_string;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_index index.php;
+    include fastcgi_params;
+	fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+}
+
+}

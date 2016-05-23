@@ -1,0 +1,14 @@
+{
+	"description":{
+		"en":"Lists all change events. Includes all transactions, issues and (for example) key changes. Note that this is not all time; root is required to store at least 5 days."
+	},
+	"request":{
+		"headers":{
+			"Content-Type":"application/json"
+		},
+		"post":null
+	},
+	"response":{
+		"type":"types/jsonlist"
+	}
+}

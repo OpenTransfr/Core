@@ -1,0 +1,13 @@
+{
+	"description":{
+		"en":"Used to receive a transaction from another root."
+	},
+	"request":{
+		"headers":{
+			"Content-Type":"application/json"
+		},
+		"post":{
+			
+		}
+	}
+}

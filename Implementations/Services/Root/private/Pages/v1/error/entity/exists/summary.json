@@ -1,0 +1,13 @@
+{
+	"type":"types/error",
+	"description":{
+		"en":"An entity using this domain name already exists."
+	},
+	"contents":{
+		"args":[]
+	},
+	"example":{
+		"type":"error/entity/exists",
+		"args":[]
+	}
+}

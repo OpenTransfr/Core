@@ -1,0 +1,52 @@
+{
+	"type":"type",
+	"description":{
+		"en":"Used by the change/list API. It's a list of these change objects."
+	},
+	"content":{
+		"Type":{
+			"type":"string",
+			"description":{
+				"The type of change that has occured. E.g. entity, issue, tx."
+			}
+		},
+		"Time":{
+			"type":"number",
+			"description":{
+				"en":"The UNIX time in milliseconds that the request was triggered at."
+			}
+		},
+		"Signature":{
+			"type":"string",
+			"verify":[
+				{
+					"type":"verifier/signature",
+					"key":"&Requester.address;"
+					"pattern":"&this.RequestID;"
+				}
+			],
+			"description":{
+				"en":"A signature of the request ID. Signed by the entity that requested the change."
+			}
+		},
+		"RequestID":{
+			"type":"string",
+			"description":{
+				"en":"The ID that identifies the request this change occured in."
+			}
+		},
+		"Content":{
+			"type":"object",
+			"description":{
+				"en":"A set of fields which are specific to each type of change."
+			}
+		},
+		"Majority":{
+			"type":"object",
+			"description":{
+				"en":"A set of signatures which acts as proof of majority."
+			}
+		}
+	},
+	"example":null
+}

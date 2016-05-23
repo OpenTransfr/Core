@@ -1,0 +1,42 @@
+{
+	"description":{
+		"en":"Issues a commodity into a given address (owned by the issuer)."
+	},
+	"request":{
+		"headers":{
+			"Content-Type":"application/json"
+		},
+		"post":{
+			"type":"types/jws",
+			"signer":"The issuer.",
+			"payload":{
+				"tag":{
+					"type":"string",
+					"description":{
+						"en":"The commodity tag that you'd like to issue."
+					}
+				},
+				"amount":{
+					"type":"number",
+					"description":{
+						"en":"The amount to be issued. Must be positive and non-zero."
+					}
+				},
+				"address":{
+					"type":"string",
+					"description":{
+						"en":"The hex address to issue it into. Must always be owned by the issuer (otherwise a hacked root node can replay this request)."
+					}
+				}
+			}
+		},
+		"example":{
+			"header":{
+				"entity":"bank.opentrans.fr"
+			},
+			"payload":"eyJ0YWciOiJjdXJyZW5jeS5hYmMiLCJhbW91bnQiOjEwMDAwMCwiYWRkcmVzcyI6IkJHWnUxSnNreFZlQWVJVTA4RHdhcUQ3WmJkYm5MV1FRaUc2MmYuLiJ9",
+			"protected":"",
+			"signature":"(Signature using bank.opentrans.fr's private key)"
+		}
+	}
+}

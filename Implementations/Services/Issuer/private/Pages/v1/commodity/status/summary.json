@@ -1,0 +1,41 @@
+{
+	"description":{
+		"en":"Used by a parent issuer (e.g. the issuer of 'commodity') to let you know that you can/ can't issue a given commodity. Also used by them to check support for this API."
+	},
+	"request":{
+		"headers":{
+			"Content-Type":"application/json"
+		},
+		"post":{
+			"type":"types/jws",
+			"signer":"The parent issuer. E.g. if you requested 'currency.abc', then the issuer for 'currency' signed the request.",
+			"payload":{
+				"tag":{
+					"type":"string",
+					"description":{
+						"en":"The commodity tag that this status message relates to."
+					}
+				},
+				"status":{
+					"type":"string",
+					"description":{
+						"en":"The status of your request for the given commodity. Either 'pending', 'accepted' or 'rejected'."
+					}
+				},
+				"reason":{
+					"type":"types/localised",
+					"optional":true,
+					"description":{
+						"en":"Required when a request is rejected. Textual reason in one or more languages."
+					}
+				}
+			}
+		}
+	},
+	"response":{
+		"description":{
+			"en":"Your server must just respond with HTTP 200 OK and a blank page."
+		}
+		"content":null
+	}
+}

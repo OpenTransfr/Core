@@ -1,0 +1,61 @@
+{
+	"description":{
+		"en":"Updates a usernames information."
+	},
+	"request":{
+		"headers":{
+			"Content-Type":"application/json"
+		},
+		"post":{
+			"data":{
+				"type":"types/jws",
+				"signee":{
+					"en":"The entity which currently holds the username signs the JWS."
+				},
+				"header":{
+					"type":"object",
+					"contents":{
+						"entity":{
+							"type":"number",
+							"description":{
+								"en":"The ID of the entity currently holding this username."
+							}
+						}
+					}
+				},
+				"protected":{
+					"type":"object",
+					"contents":{
+						"username":{
+							"type":"string",
+							"description":{
+								"en":"The username being updated."
+							}
+						}
+					}
+				},
+				"payload":{
+					"type":"object",
+					"contents":{
+						"nicename":{
+							"type":"string",
+							"optional":true,
+							"description":{
+								"en":"The new nice name for this username."
+							}
+						}
+					}
+				}
+			},
+			"example":{
+				"header":{
+					"entity":1
+				},
+				"protected":"eyJ1c2VyYW1lIjoib3BlbnRyYW5zZnIifQ==",
+				"payload":"eyJuaWNlbmFtZSI6Ik9wZW5UcmFuc2ZyIEx0ZCJ9",
+				"signature":"(JWS signature using entity 1's private key.  The correct double sha256 is 'yN6HczqIO2iuKyonRwc0Mz19V+m/G0rT1a9F286QsNY=' in Base64)"
+			}
+		}
+	},
+	"response":null
+}

@@ -1,0 +1,77 @@
+{
+	"type":"types/change",
+	"description":{
+		"en":"Transaction: A transaction has occured."
+	},
+	"contents":{
+		"Type":"tx",
+		"Content":{
+			"Amount":{
+				"type":"number",
+				"description":{
+					"en":"The amount that was issued."
+				}
+			},
+			"To":{
+				"type":"object",
+				"description":{
+					"en":"The target of the transaction."
+				},
+				"contents":{
+					"address":{
+						"type":"string",
+						"description":{
+							"en":"The hex address the transaction is going to."
+						}
+					},
+					"group":{
+						"type":"number",
+						"description":{
+							"en":"The root group that owns the to address."
+						}
+					}
+				}
+			},
+			"From":{
+				"type":"object",
+				"description":{
+					"en":"The sender."
+				},
+				"contents":{
+					"address":{
+						"type":"string",
+						"description":{
+							"en":"The hex address the transaction is coming from."
+						}
+					},
+					"group":{
+						"type":"number",
+						"description":{
+							"en":"The root group that owns the from address."
+						}
+					}
+				}
+			},
+			"Signature":{
+				"type":"string",
+				"verify":[
+					{
+						"type":"verifier/signature",
+						"key":"&this.From.address;"
+						"pattern":"&this.From.group;/&this.From.address;-&this.To.group;/&this.To.address;-&this.Amount;-&this.FromBalance;"
+					}
+				],
+				"description":{
+					"en":"The balance signature. This proves ownership of a given balance."
+				}
+			},
+			"FromBalance":{
+				"type":"number",
+				"description":{
+					"en":"The amount in the from balance before this transaction occured. Used to prevent replay."
+				}
+			}
+		}
+	},
+	"example":null
+}

@@ -1,0 +1,1 @@
+# OpenPay - OpenTransfr Merchant ServicesIn here are the files for pay.opentrans.fr; OpenTransfr's Merchant Services.# InstallationTo install, first follow the common installation which applies to all the services (See Core/Implementations/Services/README.md). Then simply upload the private and public folders from here to your website, merging into the Common files.

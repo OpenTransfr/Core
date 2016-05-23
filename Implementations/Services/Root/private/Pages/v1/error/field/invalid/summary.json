@@ -1,0 +1,22 @@
+{
+	"type":"types/error",
+	"description":{
+		"en":"The valid of this field is not within the acceptable range."
+	},
+	"contents":{
+		"args":[
+			{
+				"name":{
+					"en":"field"
+				},
+				"description":{
+					"en":"The field with an invalid value."
+				}
+			}
+		]
+	},
+	"example":{
+		"type":"error/field/invalid",
+		"args":["domain"]
+	}
+}

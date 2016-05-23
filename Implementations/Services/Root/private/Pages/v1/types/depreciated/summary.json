@@ -1,0 +1,19 @@
+{
+	"type":"type",
+	"description":{
+		"en":"Used when something has been depreciated."
+	},
+	"content":{
+		"reason":{
+			"type":"types/localised",
+			"description":{
+				"en":"The reason why it has been depreciated."
+			}
+		}
+	},
+	"example":{
+		"reason":{
+			"en":"This method has been replaced with entity/challenge/verify. Use that instead."
+		}
+	}
+}

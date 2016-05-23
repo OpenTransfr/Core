@@ -1,0 +1,22 @@
+{
+	"type":"types/error",
+	"description":{
+		"en":"A required field is missing from your request."
+	},
+	"contents":{
+		"args":[
+			{
+				"name":{
+					"en":"field"
+				},
+				"description":{
+					"en":"The missing field."
+				}
+			}
+		]
+	},
+	"example":{
+		"type":"error/field/missing",
+		"args":["entity"]
+	}
+}

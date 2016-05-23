@@ -1,0 +1,26 @@
+{
+	"description":{
+		"en":"Informs root that the user has completed a challenge. This triggers root to check if the challenge has been completed."
+	},
+	"request":{
+		"headers":{
+			"Content-Type":"application/json"
+		},
+		"post":{
+			"data":{
+				"type":"object",
+				"contents":{
+					"id":{
+						"type":"string",
+						"description":{
+							"en":"The ID of the challenge that has been completed. This ID is originally issued by the entity/certify API"
+						}
+					}
+				}
+			},
+			"example":{
+				"id":"1m9AmRosWpWmX8s"
+			}
+		}
+	}
+}

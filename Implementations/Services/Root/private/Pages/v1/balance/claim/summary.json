@@ -1,0 +1,36 @@
+{
+	"description":{
+		"en":"Claims a newly created balance. A claim must only happen after a successful transaction to this address has occured. This essentially adds a secondary layer of security as it helps protect from stolen private keys."
+	},
+	"request":{
+		"headers":{
+			"Content-Type":"application/json"
+		},
+		"post":{
+			"type":"types/jws",
+			"signee":"The entity that wishes to claim the address",
+			"payload":{
+				
+				"address":{
+					"type":"string",
+					"description":{
+						"en":"The hex public address of the balance that you would like to claim. It must be unclaimed (i.e. the entity must be 0/blank)."
+					}
+				},
+				"balance":{
+					"type":"number",
+					"description":{
+						"en":"The current balance in the address. Must be non-zero. This is present to avoid replay."
+					}
+				}
+				"signature":{
+					"type":"string",
+					"description":{
+						"en":"The base64 signature of the following: {entity public key (hex)}.{current balance (number)}, signed using the balance private key."
+					}
+				}
+				
+			}
+		}
+	}
+}

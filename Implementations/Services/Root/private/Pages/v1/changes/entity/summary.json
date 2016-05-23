@@ -1,0 +1,48 @@
+{
+	"type":"types/change",
+	"description":{
+		"en":"Entity: An entity has been created or changed."
+	},
+	"contents":{
+		"Type":"entity",
+		"Content":{
+			"Key":{
+				"type":"string",
+				"description":{
+					"en":"Hex public key of the entity."
+				}
+			},
+			"Type":{
+				"type":"number",
+				"description":{
+					"en":"The main type of entity."
+				}
+			},
+			"Endpoint":{
+				"type":"string",
+				"description":{
+					"en":"Endpoint of the entity."
+				}
+			},
+			"Group":{
+				"type":"number",
+				"description":{
+					"en":"The root group that this entity is in."
+				}
+			},
+			"Name":{
+				"type":"string",
+				"description":{
+					"en":"The local name of the entity."
+				}
+			},
+			"Country":{
+				"type":"number",
+				"description":{
+					"en":"The country the entity is acting in."
+				}
+			}
+		}
+	},
+	"example":null
+}

@@ -1,0 +1,41 @@
+{
+	"type":"type",
+	"description":{
+		"en":"An ACME-style list of challenges. You only need to perform one of them.These challenges are designed to prove that your own a domain name. In short, you'll need to upload a response to a given location then tell the network that you've done it by loading a given url. "
+	},
+	"content":{
+		"challenges":{
+			"type":"array",
+			"description":{
+				"en":"The set of challenges. You should only perform one."
+			},
+			"content":{
+				"type":{
+					"type":"string",
+					"description":{
+						"en":"The type of challenge. Either 'http' or 'dns'. Currently only 'http' is used. The rest of the properties are assuming a http type."
+					}
+				},
+				"at":{
+					"type":"string",
+					"description":{
+						"en":"This is the URL that you should upload your challenge response to. See token on how to form your challenge response. It's always of the form https://{your domain}/opentx/{first 32 characters of your public key}.json"
+					}
+				},
+				"uri":{
+					"type":"string",
+					"description":{
+						"en":"The URL to load when you've uploaded your challenge response. This will cause the network to load the location to verify it's been done. It's always of the form https://{the root node sending you the challenge}/v1/entity/challenge/verify?domain={your domain}"
+					}
+				},
+				"token":{
+					"type":"string",
+					"description":{
+						"en":"The token block which you'll need to sign and put on your website. Upload the following JSON: {'payload':'the token','signature':'your signature of the token in base64'} to 'at', then load 'uri' when it's done."
+					}
+				}
+				
+			}
+		}
+	}
+}

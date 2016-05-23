@@ -1,0 +1,48 @@
+{
+	"type":"types/change",
+	"description":{
+		"en":"Commodity: A commodity has been created or changed."
+	},
+	"contents":{
+		"Type":"com",
+		"Content":{
+			"Issuer":{
+				"type":"string",
+				"description":{
+					"en":"The endpoint of the entity that issues this commodity."
+				}
+			},
+			"Tag":{
+				"type":"string",
+				"description":{
+					"en":"The commodity tag."
+				}
+			},
+			"Description":{
+				"type":"types/localised",
+				"description":{
+					"en":"The description of the commodity."
+				}
+			},
+			"Name":{
+				"type":"types/localised",
+				"description":{
+					"en":"The name of the commodity."
+				}
+			},
+			"Divisor":{
+				"type":"number",
+				"description":{
+					"en":"The divisor of the commodity."
+				}
+			},
+			"Policy":{
+				"type":"number",
+				"description":{
+					"en":"The issuing policy of the commodity."
+				}
+			}
+		}
+	},
+	"example":null
+}

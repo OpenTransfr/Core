@@ -1,0 +1,36 @@
+{
+	"type":"types/change",
+	"description":{
+		"en":"Claim: An entity has claimed ownership of a balance."
+	},
+	"contents":{
+		"Type":"clm",
+		"Content":{
+			"Entity":{
+				"type":"string",
+				"description":{
+					"en":"The endpoint of the entity that claimed the balance."
+				}
+			},
+			"Address":{
+				"type":"string",
+				"description":{
+					"en":"The hex public address of the balance that has been claimed."
+				}
+			},
+			"Signature":{
+				"type":"string",
+				"description":{
+					"en":"The base64 signature of {entity public key}.{balance (number)}, signed using the balance private key."
+				}
+			},
+			"Balance":{
+				"type":"number",
+				"description":{
+					"en":"The current amount in the balance. Used as a replay prevention."
+				}
+			}
+		}
+	},
+	"example":null
+}

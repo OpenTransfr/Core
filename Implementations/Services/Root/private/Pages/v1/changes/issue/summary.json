@@ -1,0 +1,30 @@
+{
+	"type":"types/change",
+	"description":{
+		"en":"Issue: An issuer issued an amount into a balance."
+	},
+	"contents":{
+		"Type":"issue",
+		"Content":{
+			"Tag":{
+				"type":"string",
+				"description":{
+					"en":"The commodity that was issued."
+				}
+			},
+			"Amount":{
+				"type":"number",
+				"description":{
+					"en":"The amount that was issued."
+				}
+			},
+			"To":{
+				"type":"string",
+				"description":{
+					"en":"The hex address that it was issued into."
+				}
+			}
+		}
+	},
+	"example":null
+}

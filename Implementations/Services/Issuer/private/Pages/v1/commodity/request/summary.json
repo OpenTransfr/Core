@@ -1,0 +1,48 @@
+{
+	"description":{
+		"en":"Requests the ability to issue a sub-tag. For example, the issuer of 'currency' may be running this API and you submit a request to issue 'currency.abc'. The issuers own policy affects how they respond. Before you call this, your entity endpoint must already support this issuer API."
+	},
+	"request":{
+		"headers":{
+			"Content-Type":"application/json"
+		},
+		"post":{
+			"type":"types/jws",
+			"signer":"The entity that wishes to issue this commodity. For example, if you want to issue 'virt.currency.abc', you sign the request and submit it to 'virt.currency'.",
+			"payload":{
+				"tag":{
+					"type":"string",
+					"description":{
+						"en":"The commodity tag that you'd like to begin issuing."
+					}
+				},
+				"divisor":{
+					"type":"number",
+					"description":{
+						"en":"Balances are divided by this number for displaying. Most of the time this is 1 except for currencies. This is because internally balances can only be whole numbers. So, for example, GBP (British pound sterling) is stored in terms of pennies. A divisor of 100 displays those 100 pennies as 1.00 GBP."
+					}
+				},
+				"name":{
+					"type":"types/localised",
+					"description":{
+						"en":"The name of the commodity. At the moment provide just 'en' (English)."
+					}
+				},
+				"description":{
+					"type":"types/localised",
+					"description":{
+						"en":"The description of the commodity. At the moment provide just 'en' (English)."
+					}
+				}
+			}
+		},
+		"example":{
+			"header":{
+				"entity":"issuer.opentrans.fr"
+			},
+			"payload":"ew0KCSJ0YWciOiJjdXJyZW5jeS5hYmMiLA0KCSJkaXZpc29yIjoxLA0KCSJuYW1lIjp7DQoJCSJlbiI6Ik5ldyBDdXJyZW5jeSINCgl9LA0KCSJkZXNjcmlwdGlvbiI6ew0KCQkiZW4iOiJNeSBuZXcgY3VycmVuY3kiDQoJfQ0KfQ==",
+			"protected":"",
+			"signature":"(Signature of 'protected.payload' using issuer.opentrans.fr's private key)"
+		}
+	}
+}
