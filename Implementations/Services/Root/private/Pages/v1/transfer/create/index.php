@@ -92,8 +92,8 @@ if(!$outbound){
 	
 }
 
-$success=$dz->query( 'update `Root.Balances` set LockedBalance=LockedBalance+'.$amount.',Balance=Balance-'.$amount.
-					' where `Key`=UNHEX("'.$fromAddress.'") and Balance='.$fromBalance
+$success=$dz->query( 'update `Root.Balances` set `LockedBalance`=`LockedBalance`+'.$amount.',`Balance`=`Balance`-'.$amount.
+					' where `Key`=UNHEX("'.$fromAddress.'") and `Balance`='.$fromBalance
 				   );
 
 if(!$success){
@@ -185,11 +185,11 @@ if(!$majority){
 }
 
 // Update the amounts now!
-$dz->query('update `Root.Balances` set LockedAmount=LockedAmount-'.$amount.' where Key=UNHEX("'.$fromAddress.'")');
+$dz->query('update `Root.Balances` set LockedBalance=LockedBalance-'.$amount.' where `Key`=UNHEX("'.$fromAddress.'")');
 
 if(!$outbound){
 	// It's going to this root - update the to address as well:
-	$dz->query('update `Root.Balances` set Amount=Amount+'.$amount.',LockedAmount=LockedAmount-'.$amount.' where Key=UNHEX("'.$toAddress.'")');
+	$dz->query('update `Root.Balances` set Balance=Balance+'.$amount.',LockedBalance=LockedBalance-'.$amount.' where `Key`=UNHEX("'.$toAddress.'")');
 }
 
 // Create a tx record (occurs in transfer/create/success as well):

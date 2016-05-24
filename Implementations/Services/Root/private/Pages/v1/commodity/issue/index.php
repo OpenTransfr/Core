@@ -81,7 +81,7 @@ $fullSet='{"amount":"'.$amount.'","address":"'.$hexAddress.'","challenges":'.$fu
 sendToRoot(base64_encode($fullSet),'eyJmd2QiOjF9',false,'commodity/issue/success');
 
 // Update the amount now!
-$dz->query('update `Root.Balances` set Amount=Amount+'.$amount.',LockedAmount=LockedAmount-'.$amount.' where Key=UNHEX("'.$hexAddress.'")');
+$dz->query('update `Root.Balances` set Balance=Balance+'.$amount.',LockedBalance=LockedBalance-'.$amount.' where `Key`=UNHEX("'.$hexAddress.'")');
 
 // Create an issue record (occurs in issue/success as well):
 changed('issue',array(

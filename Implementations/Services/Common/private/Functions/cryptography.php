@@ -136,6 +136,28 @@ function generateKeyPair(){
 }
 
 /*
+* Stores the given keypair into the given table (optional).
+* Typically it's most convenient for all the keypairs to go into one
+* table, which is Bank.Balances by default.
+* Returns the hex public key.
+*/
+function storeKeyPair($keypair,$table='Bank.Balances'){
+	
+	// Include the database:
+	global $dz;
+	
+	// Get the hex versions:
+	$publicKey=bin2hex($keypair['public']);
+	$privateKey=bin2hex($keypair['private']);
+
+	// Add to this banks address pool:
+	$dz->query('insert into `'.$table.'`(`Key`,`Private`) values(unhex("'.$publicKey.'"),unhex("'.$privateKey.'"))');
+	
+	// Return the hex public key.
+	return $publicKey;
+}
+
+/*
 * Returns a random string of the given length.
 */
 function randomString($length){

@@ -119,7 +119,7 @@ $fullSet='{"amount":"'.$amount.'","commodity":"'.$commodity.'","from":{"address"
 sendToRoot(base64_encode($fullSet),'eyJmd2QiOjF9',false,'transfer/outroot/success');
 
 // Update the amounts now!
-$dz->query('update `Root.Balances` set Amount=Amount+'.$amount.',LockedAmount=LockedAmount-'.$amount.' where Key=UNHEX("'.$toAddress.'")');
+$dz->query('update `Root.Balances` set Balance=Balance+'.$amount.',LockedBalance=LockedBalance-'.$amount.' where `Key`=UNHEX("'.$toAddress.'")');
 
 // Create a tx record (occurs in transfer/outroot/success as well):
 changed('tx',array(

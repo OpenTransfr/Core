@@ -8,13 +8,13 @@ postedTo();
 // Get the tag, name and description.
 
 // Tag must be a valid tag only. Punycode (for internationalized tags) is supported:
-$tag=strtolower( safe('tag',"/[^a-z0-9A-Z\-\.]+/") );
+$tag=strtolower( safe('tag',VALID_DOMAIN) );
 
 // Get the status (lowercase only):
-$status=safe('status',"/[^a-z]+/");
+$status=strtolower( safe('status',VALID_ALPHA) );
 
 // The reason (optional):
-$reason=safe('reason',true,null,true); // True because these are sets/ we want them as-is.
+$reason=safe('reason',VALID_ARRAY,null,true); // These are sets.
 
 // $verifiedEntity must match the parent commodity.
 

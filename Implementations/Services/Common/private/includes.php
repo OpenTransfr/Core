@@ -28,6 +28,9 @@ include('../private/Functions/output.php');
 // Functions for forwarding to root group:
 include('../private/Functions/root.php');
 
+// Functions for issuers:
+include('../private/Functions/issuer.php');
+
 // GET/ POST functions:
 include('../private/Functions/web.php');
 

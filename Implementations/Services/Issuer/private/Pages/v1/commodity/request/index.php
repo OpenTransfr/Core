@@ -18,25 +18,25 @@ if($verifiedEntity==0){
 // Get the tag, name and description.
 
 // Tag must be a valid tag only. Punycode (for internationalized tags) is supported:
-$tag=strtolower( safe('tag',"/[^a-z0-9A-Z\-\.]+/") );
+$tag=strtolower( safe('tag',VALID_DOMAIN) );
 
 // Policy must be either 'public', 'closed' or 'reviewed'
 $policy=safe('policy',array('closed'=>0,'public'=>1,'reviewed'=>2));
 
 // Divisor must be a positive non-zero number:
-$divisor=(int)safe('divisor',"/[^0-9]+/");
+$divisor=(int)safe('divisor',VALID_NUMBER);
 
 if($divisor==0){
 	// They specified 0 - this isn't valid:
 	error('field/invalid','divisor');
 }
 
-$name=safe('name',true); // True because these are sets/ we want them as-is.
-$description=safe('description',true); // True because these are sets/ we want them as-is.
+$name=safe('name',VALID_ARRAY);
+$description=safe('description',VALID_ARRAY);
 
-// Get the English name/ description.
-// $name_en=safe('en',null,$name);
-// $description_en=safe('en',null,$description);
+// Check the English name/ description exist.
+safe('en',VALID_TITLE,$name);
+safe('en',VALID_TEXT,$description);
 
 // Does it already exist? Two commodities can't use the same tag.
 $exists=$dz->get_row('select ID from `Root.Commodities` where Tag="'.$tag.'"');
@@ -123,8 +123,9 @@ if($parentPolicy==1){
 		.',"name":'.json_encode($name).',"divisor":'.$divisor.',"issuer":"'.$futureIssuer.'"}';
 
 	// Send the request to root:
-	$result=root('commodity/create',$rootCreate,'');
-
+	$response;
+	$result=callRoot('commodity/create',$rootCreate,$response);
+	
 	if($result===false){
 		// Failed to request root! This is a 500 server error.
 		serverError();

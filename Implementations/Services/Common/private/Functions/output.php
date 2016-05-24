@@ -58,7 +58,7 @@ function serverError(){
 function logException($str,$backtrace=true){
 	
 	// Generic error handler
-	$result='<div style="padding:4px;border:2px solid #cc3300;color:#ffffff;background:#FF9797;">'.$str;
+	$result=$str;
 	
 	if($backtrace){
 		
@@ -91,9 +91,12 @@ function logException($str,$backtrace=true){
 		
 	}
 	
-	$result.='</div>';
+	// Produce a 500 error:
+	header("HTTP/1.0 500 Server Error");
 	
+	// Output to user:
 	echo $result;
+	
 }
 
 /*

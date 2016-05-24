@@ -42,7 +42,7 @@ testMajority($challenges,$hexAddress.$amount);
 // Because of the locking process, we know that the balance can't have been emptied and deleted.
 
 // Update the amount now!
-$dz->query('update `Root.Balances` set Amount=Amount+'.$amount.',LockedAmount=LockedAmount-'.$amount.' where Key=UNHEX("'.$hexAddress.'")');
+$dz->query('update `Root.Balances` set Balance=Balance+'.$amount.',LockedBalance=LockedBalance-'.$amount.' where `Key`=UNHEX("'.$hexAddress.'")');
 
 // Create an issue record (occurs in issue/success as well):
 changed('issue',array(

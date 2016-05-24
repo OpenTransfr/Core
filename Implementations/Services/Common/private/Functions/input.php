@@ -21,7 +21,7 @@ define('VALID_ALPHA',"/[^A-Za-z]+/");
 define('VALID_EMAIL',"/[^\p{L}\p{N}\@\.]+/");
 define('VALID_NAME',"/[^\p{Ll}\p{N}\.\-]+/");
 define('VALID_TITLE',"/[^\p{L}\p{N} \.\-]+/");
-define('VALID_TEXT',"/[^\p{L}\p{N} \.\-]+/");
+define('VALID_TEXT',"*");
 
 /*
 * ID of the entity the message was forwarded from if it is another root.
@@ -142,14 +142,14 @@ function safe($field,$range=null,$set=null,$optional=false){
 	}
 	
 	// Otherwise it's a regex string:
-	if(preg_replace($range,"",$value)!=$value){
+	if($range!='*' && preg_replace($range,"",$value)!=$value){
 		
 		// It contains unacceptable characters.
 		error('field/invalid',$field);
 		
 	}
 	
-	return $value;
+	return escape($value);
 	
 }
 

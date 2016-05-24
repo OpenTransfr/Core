@@ -59,7 +59,7 @@ testMajority($challenges,$signed);
 // Because of the locking process, we know that the balance can't have been emptied and deleted.
 
 // Update the amount now! This is a half-transaction so we only update the to address:
-$dz->query('update `Root.Balances` set Amount=Amount+'.$amount.',LockedAmount=LockedAmount-'.$amount.' where Key=UNHEX("'.$toAddress.'")');
+$dz->query('update `Root.Balances` set Balance=Balance+'.$amount.',LockedBalance=LockedBalance-'.$amount.' where `Key`=UNHEX("'.$toAddress.'")');
 
 // Create a tx record (occurs in transfer/create/success as well):
 changed('tx',array(

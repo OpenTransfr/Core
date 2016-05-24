@@ -16,68 +16,44 @@ function issuerStatus($endpoint,$tag,$status,$reason=NULL){
 	
 	$payload.='}';
 	
-	// Build the JWS:
-	$message=jws($payload,'');
-	
-	// Request now:
 	$error;
-	$response=post('https://'.$endpoint.'/v1/commodity/status',$message,$error);
+	$response=sendTo($endpoint,'commodity/status',$payload,$error);
 	
 	return ($response=='{"result":"OK"}' && $error===NULL);
 	
 }
 
 /*
-* Builds a JWS signed with this entities key.
+* Issues the given amount of the given commodity.
+* Must of course be the issuer of that commodity to issue it.
 */
-function jws($payload,$protected){
+function issue($commodity,$amount){
 	
-	// Base64 the payload:
-	$payload=base64_encode($payload);
+	if(!is_numeric($amount) || $amount<=0){
+		
+		// Not a suitable number.
+		error('field/invalid','amount');
+		
+	}
 	
-	// And the header:
-	$protected=base64_encode($protected);
+	// Make and store the address pair:
+	$keypair=generateKeyPair();
+	$publicKey=storeKeyPair($keypair);
 	
-	// Build the signed message:
-	return '{"header":{"entity":"'.$thisEntity['Endpoint'].'"},"protected":"'.$protected.'","payload":"'
-		.$payload.'","signature":"'.base64_encode( sign($protected.'.'.$payload) ).'"}';
+	// Build the API message. It requires the tag, amount and an address.
+	$payload='{"tag":"'.$commodity.'","amount":'.$amount.',"address":"'.$publicKey.'"}';
 	
-}
-
-/*
-* Submits a request to root using this entities private key to sign a JSON payload.
-*/
-function root($path,$payload,$protected){
-	
-	$message=jws($payload,$protected);
-	
-	// Request now:
-	$error;
-	$response=post('https://'.randomRoot().'/v1/'.$path,$message,$error);
-	
-	if($error!=NULL){
+	// Call the issue API:
+	$result;
+	if(!callRoot('commodity/issue',$payload,$result)){
+		
+		// Failed.
 		return false;
+		
 	}
 	
-	return $response;
-	
-}
-
-/*
-* Gets a random root node from this entities group.
-*/
-function randomRoot(){
-	
-	global $rootKeys;
-	
-	if($rootKeys==null){
-		// Root keys holds a mapping of endpoint to key.
-		// We'll use it here to get those endpoints.
-		getRootKeys();
-	}
-	
-	// The key is actually the endpoint, so this is nice and simple:
-	return array_rand($rootKeys);
+	// Ok!
+	return true;
 	
 }
 

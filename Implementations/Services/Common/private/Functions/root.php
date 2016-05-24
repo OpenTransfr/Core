@@ -215,4 +215,31 @@ function sendToRoot($payload,$pHeader,$decodeJson=false,$location=null,$rootGrou
 	
 }
 
+/*
+* Sends the given JSON message to the API at the given location.
+*/
+function sendTo($endpoint,$api,$payload,&$error){
+	
+	global $thisEntity;
+	
+	// Encode the payload:
+	$payload=base64_encode($payload);
+	
+	// Build the message:
+	$message='{"header":{"entity":"'.$thisEntity['Endpoint'].'"},"protected":"","payload":"'.
+		$payload.'","signature":"'.base64_encode( sign('.'.$payload) ).'"}';
+	
+	// Post it off:
+	$postError;
+	$response=post('https://'.$endPoint.'/v1/'.$api,$message,$postError);
+	
+	if($postError){
+		$error=$postError;
+		return null;
+	}
+	
+	return json_decode($response);
+	
+}
+
 ?>

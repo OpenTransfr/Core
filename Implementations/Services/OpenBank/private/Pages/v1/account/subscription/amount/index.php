@@ -14,7 +14,7 @@ if($verifiedAccount==0){
 $id=safe('id',VALID_NUMBER);
 
 // Fetch it:
-$sub=$dz->get_row('select `Amount`,`DynamicUrl`,`Commodity`,`Reference`,`ItemInformation` from `Bank.Subscriptions` where `Account`='.$verifiedAccount);
+$sub=$dz->get_row('select `Amount`,`DynamicUrl`,`Commodity`,`Reference`,`ItemInformation` from `Bank.Subscriptions` where `Account`='.$verifiedAccount.' and `ID`='.$id);
 
 if(!$sub){
 	

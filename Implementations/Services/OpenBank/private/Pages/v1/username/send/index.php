@@ -29,12 +29,7 @@ if(!$account){
 // Generate a new keypair. This is where they primarily originate from.
 // When a transaction is seen on the public key, we'll know it completed for this reference.
 $keypair=generateKeyPair();
-
-$publicKey=bin2hex($keypair['public']);
-$privateKey=bin2hex($keypair['private']);
-
-// Add to this banks address pool:
-$dz->query('insert into `Bank.Balances`(`Key`,`Private`) values(unhex("'.$publicKey.'"),unhex("'.$privateKey.'"))');
+$publicKey=storeKeyPair($keypair);
 
 // Add to table of pending incomings:
 $dz->query('insert into `Bank.Incomings`(`Reference`,`Key`,`Account`,`Name`) values("'.$reference.'",unhex("'.$publicKey.'"),'.$account['ID'].',"'.$niceName.'")');

@@ -25,7 +25,7 @@ if(!$amount){
 }
 
 // Which commodity is the amount in?
-$commodity=safe('commodity',VALID_NAME);
+$commodity=safe('commodity',VALID_DOMAIN);
 
 if(!$commodity){
 	

@@ -1,0 +1,14 @@
+{
+	"description":{
+		"en":"Lists all the delivery locations setup for this account."
+	},
+	"request":{
+		"headers":{
+			"Content-Type":"application/json"
+		},
+		"post":null
+	},
+	"response":{
+		"type":"types/jsonlist"
+	}
+}

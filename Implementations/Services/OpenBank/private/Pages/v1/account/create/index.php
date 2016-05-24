@@ -63,7 +63,6 @@ $success=callRoot('username/create','{"username":"'.$user.'","public_key":"'.$pu
 if(!$success){
 	
 	// Error claiming the username.
-	print_r($rootErrors);
 	error('username/unclaimed');
 	
 }
@@ -73,12 +72,23 @@ $privSignKey=bin2hex($signPair['private']);
 
 // Create the account now:
 $dz->query(
-	'insert into `Bank.Accounts`(`Username`,`FullName`,`Email`,`Registered`,`Country`,`FavouriteCommodity`,`SignKey`) values ("'
-	.$user.'","'.$fullName.'","'.$email.'",'.time().',0,"'.$bankCurrency.'",unhex("'.$privSignKey.'"))'
+	'insert into `Bank.Accounts`(`Username`,`FullName`,`Registered`,`Country`,`SignKey`) values ("'
+	.$user.'","'.$fullName.'",'.time().',0,unhex("'.$privSignKey.'"))'
 );
 
 // Get the account row ID:
 $accountID=$dz->insert_id();
+
+// Apply account settings next.
+$dz->query('insert into `Bank.AccountSettings`(`Setting`,`Value`,`Account`) values '.
+	
+	// Create the favourite commodity setting:
+	'("commodity.pref","'.$bankCurrency.'",'.$accountID.'), '.
+	
+	// Email address setting:
+	'("email","'.$email.'",'.$accountID.')'
+	
+);
 
 // Associate the device with the account:
 $dz->query('update `Bank.Devices` set `Account`='.$accountID.' where ID='.$verifiedDevice);

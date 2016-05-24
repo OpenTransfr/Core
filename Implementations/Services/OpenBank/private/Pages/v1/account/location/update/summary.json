@@ -1,0 +1,14 @@
+{
+	"description":{
+		"en":"Deletes a particular delivery location."
+	},
+	"request":{
+		"headers":{
+			"Content-Type":"application/json"
+		},
+		"post":null
+	},
+	"response":{
+		"type":"types/jsonlist"
+	}
+}
