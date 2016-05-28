@@ -1,5 +1,7 @@
-How everybody agrees
-====================
+.. _consensus:
+
+How consensus works
+===================
 
 When a transaction is processed, everybody has to agree that it's valid. That involves checking that the request came from the owner as well as checking if there's enough funds available. The process behind a group of nodes collectively agreeing about a transaction is called consensus. With OpenTransfr, reaching consensus is simple and works like this:
 
@@ -18,7 +20,7 @@ In 2 phases, which can be potentially grouped up with other transactions, consen
 As these phases are just two parallel groups of HTTPS requests, consensus can be obtained well within 2 seconds.
 
 Double Spending
-===============
+---------------
 
 Double spending can be summarised as any attempt to spend value twice, like this:
 
