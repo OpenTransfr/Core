@@ -255,7 +255,7 @@ function postedTo($keyInfo=false){
 		// Update the signed ID:
 		$signedPublicID=array('id'=>$id,'signature'=>$pubsig,'time'=>$time);
 		
-		if($apiMode=='bank'){
+		if($apiMode=='Bank' || $apiMode=='Merchant'){
 			
 			global $verifiedDevice,$verifiedAccount;
 			
@@ -306,9 +306,9 @@ function loadJws(&$entityID,&$entityEP,&$isRoot,&$publicKey){
 	// Now we verify the JWS signature. Unprotected header either contains
 	// 'entity' or 'pk' which we'll use.
 	
-	if( $apiMode=='bank' && isset($header['device']) ){
+	if( isset($header['device']) && ($apiMode=='Bank' || $apiMode=='Merchant') ){
 		
-		// Bank API. We're receiving a device here.
+		// Bank/ Merchant API. We're receiving a device here.
 		
 		// We'll need the database to verify a device:
 		global $dz;
@@ -332,7 +332,7 @@ function loadJws(&$entityID,&$entityEP,&$isRoot,&$publicKey){
 		$entityID=(int)$parts[0];
 		
 		// Get the row:
-		$row=$dz->get_row('select `Key`,`Account`,`Sequence`,`FailedAttempts`,`LastFailedAttempt` from `Bank.Devices` where ID='.$entityID.' and PublicID="'.$parts[1].'"');
+		$row=$dz->get_row('select `Key`,`Account`,`Sequence`,`FailedAttempts`,`LastFailedAttempt` from `'.$apiMode.'.Devices` where ID='.$entityID.' and PublicID="'.$parts[1].'"');
 		
 		if(!$row){
 			
@@ -362,7 +362,7 @@ function loadJws(&$entityID,&$entityEP,&$isRoot,&$publicKey){
 			}else{
 				
 				// No - unlock it. We'll reduce failed attempts back to 0 so future requests don't repeat this check.
-				$dz->query('update `Bank.Devices` set `FailedAttempts`=0 where ID='.$entityID);
+				$dz->query('update `'.$apiMode.'.Devices` set `FailedAttempts`=0 where ID='.$entityID);
 				
 			}
 			
@@ -456,7 +456,7 @@ function loadJws(&$entityID,&$entityEP,&$isRoot,&$publicKey){
 		// For example, in the Bank API, it indicates the user entered the wrong pin.
 		// So, if we're using the bank API, we'll track the # of attempts for the device.
 		
-		if($apiMode=='bank' && $entityID){
+		if( ($apiMode=='Bank' || $apiMode=='Merchant') && $entityID){
 			
 			// Track the attempts for this device.
 			// First we'll check if this failed attempt will 'stack' or not using the previously obtained
@@ -483,7 +483,7 @@ function loadJws(&$entityID,&$entityEP,&$isRoot,&$publicKey){
 			}
 			
 			// Update the database now:
-			$dz->query('update `Bank.Devices` set FailedAttempts='.($attempts+1).',`LastFailedAttempt`='.$currentTime.' where ID='.$entityID);
+			$dz->query('update `'.$apiMode.'.Devices` set FailedAttempts='.($attempts+1).',`LastFailedAttempt`='.$currentTime.' where ID='.$entityID);
 			
 		}
 		
@@ -528,7 +528,7 @@ function loadJws(&$entityID,&$entityEP,&$isRoot,&$publicKey){
 			header('Sequence: '.$sequence);
 			
 			// Update it:
-			$dz->query('update `Bank.Devices` set `Sequence`="'.$sequence.'" where ID='.$entityID);
+			$dz->query('update `'.$apiMode.'.Devices` set `Sequence`="'.$sequence.'" where ID='.$entityID);
 			
 		}else{
 			
@@ -546,78 +546,36 @@ function loadJws(&$entityID,&$entityEP,&$isRoot,&$publicKey){
 
 /*
 * Subscriptions and transactions both provide product information
-* to state what was being purchased. This function ensures it's safe to store
-* and responds with a cleaned JSON string.
+* to state what was being purchased. This function ensures
+* the required properties are present.
+* Returns a JSON formatted string.
 */
 function cleanProducts($products,$discounts,$notify){
 	
-	// The cleaned products:
-	$cleanProducts=array();
-
 	// Validate each product row.
 	foreach($products as $product){
 		
-		// Check for name (any), quantity (decimal), total (number),upc (optional, number), id (optional, any)
-		$name=escape( safe('name',true,$product) );
-		$quantity=safe('quantity',VALID_DECIMAL,$product);
-		$total=safe('total',VALID_NUMBER,$product);
-		$upc=safe('upc',VALID_NUMBER,$product,true);
-		$id=escape( safe('id',true,$product,true) );
-		
-		// Build the clean product:
-		$cleanProduct=array(
-			'name'=>$name,
-			'quantity'=>$quantity,
-			'total'=>$total
-		);
-		
-		if($upc){
-			// It's got a universal product code:
-			$cleanProduct['upc']=$upc;
-		}
-		
-		if($id){
-			// It's got a store-specific ID:
-			$cleanProduct['id']=$id;
-		}
-		
-		// Add to clean products set:
-		array_push($cleanProducts,$cleanProduct);
+		// Check for opn (number), volume (decimal), total (number)
+		safe('opn',VALID_NUMBER,$product);
+		safe('volume',VALID_DECIMAL,$product);
+		safe('total',VALID_NUMBER,$product);
 		
 	}
-
-	// The cleaned discounts:
-	$cleanDiscounts=array();
-
+	
 	if($discounts){
 		
 		// Validate each discount next:
 		foreach($discounts as $discount){
 			
 			// Check for name (any), total (number)
-			$name=escape( safe('name',true,$discount) );
-			$total=safe('total',VALID_NUMBER,$discount);
-			
-			// Build the clean discount:
-			$cleanDiscount=array(
-				'name'=>$name,
-				'total'=>$total
-			);
-			
-			// Add to clean discounts set:
-			array_push($cleanDiscounts,$cleanDiscount);
+			safe('name',true,$discount);
+			safe('total',VALID_NUMBER,$discount);
 			
 		}
 
 	}
 	
-	if(!$notify){
-		// It's optional.
-		$notify='';
-	}
-
-	// Encode item info into JSON:
-	return json_encode(array('products'=>$cleanProducts,'discounts'=>$cleanDiscounts,'notify'=>$notify));
+	return json_encode(array('products'=>$products,'discounts'=>$discounts,'notify'=>$notify));
 	
 }
 

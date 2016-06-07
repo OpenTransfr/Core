@@ -14,7 +14,7 @@ if($verifiedAccount==0){
 $id=safe('id',VALID_NUMBER);
 
 // Delete the location:
-$result=$dz->query('delete from `Bank.AccountLocations` where `Account`='.$verifiedAccount.' and `ID`='.$id);
+$result=$dz->query('delete from `Bank.Account.Locations` where `Account`='.$verifiedAccount.' and `ID`='.$id);
 
 if(!$result){
 	

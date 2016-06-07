@@ -79,37 +79,40 @@ function getRootKeys($inGroup=null){
 /*
 * Calls a root API. Typically used by banks and issuers.
 */
-function callRoot($api,$payload,&$result){
+function callRoot($api,$payload,&$error){
 	
-	global $thisEntity;
+	// Get a random root node:
+	$root=randomRoot();
 	
-	// Encode the JSON payload:
-	$payload=base64_encode($payload);
-	
-	// Create a request ID:
-	$id=randomHex(20).'@'.time().'000';
-	
-	// Build the protected header:
-	$pHeader=base64_encode('{"id":"'.$id.'","pubsig":"'.base64_encode(sign($id)).'"}');
-	
+	$sendError;
 	// Send now:
-	$responses=sendToRoot($payload,$pHeader,false,'v1/'.$api,$thisEntity['Group']);
+	$result=sendTo($root['Endpoint'],$api,$payload,$sendError);
 	
-	// Responses contains only one response from a root node.
-	// (It can alternatively contain nothing - that happens if it errored and swallowed it).
-	// This is because we explicitly stated the group we're sending to.
-	// It's indexed by the endpoint though, which we don't need, so we'll return
-	// that singular response as $result.
+	// Update error if there was one:
+	$error=$sendError;
 	
-	foreach($responses as $response){
+	return $result;
+}
+
+/*
+* Gets a random root node within the given group (or 'this' group if none is given).
+*/
+function randomRoot($rootGroup=null){
+	
+	global $dz;
+	
+	// Got a group?
+	if(!$rootGroup){
 		
-		$result=$response;
-		return true;
+		global $thisEntity;
 		
+		// Use the group that this node is in:
+		$rootGroup=$thisEntity['Group'];
 	}
 	
-	// It emitted an error (and swallowed it).
-	return false;
+	// Grab a random row:
+	return $dz->get_row('select `Key`,`Endpoint` from `Root.Entities` where `Group`='.$rootGroup.' and `Type`=5 order by rand() limit 1');
+	
 }
 
 /*
@@ -155,7 +158,7 @@ function sendToRoot($payload,$pHeader,$decodeJson=false,$location=null,$rootGrou
 		// Only need to send to one node here.
 		// (If we send to all of them, it defeats the object of having groups!)
 		// Get a random node:
-		$randomRow=$dz->get_row('select `Key`,`Endpoint` from `Root.Entities` where `Group`='.$rootGroup.' and `Type`=5 order by rand() limit 1');
+		$randomRow=randomRoot($rootGroup);
 		
 		// Create the set:
 		$keySet=array();
@@ -225,20 +228,26 @@ function sendTo($endpoint,$api,$payload,&$error){
 	// Encode the payload:
 	$payload=base64_encode($payload);
 	
+	// Create a request ID:
+	$id=randomHex(20).'@'.time().'000';
+	
+	// Build the protected header:
+	$pHeader=base64_encode('{"id":"'.$id.'","pubsig":"'.base64_encode(sign($id)).'"}');
+	
 	// Build the message:
-	$message='{"header":{"entity":"'.$thisEntity['Endpoint'].'"},"protected":"","payload":"'.
-		$payload.'","signature":"'.base64_encode( sign('.'.$payload) ).'"}';
+	$message='{"header":{"entity":"'.$thisEntity['Endpoint'].'"},"protected":"'.$pHeader.'","payload":"'.
+		$payload.'","signature":"'.base64_encode( sign($pHeader.'.'.$payload) ).'"}';
 	
 	// Post it off:
 	$postError;
-	$response=post('https://'.$endPoint.'/v1/'.$api,$message,$postError);
+	$response=post('https://'.$endpoint.'/v1/'.$api,$message,$postError);
 	
 	if($postError){
 		$error=$postError;
 		return null;
 	}
 	
-	return json_decode($response);
+	return $response;
 	
 }
 

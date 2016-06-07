@@ -63,11 +63,10 @@ $dz->query('update `Root.Balances` set Balance=Balance+'.$amount.',LockedBalance
 
 // Create a tx record (occurs in transfer/create/success as well):
 changed('tx',array(
-	'Amount'=>$amount,
-	'To'=>array('address'=>$toAddress,'group'=>$toGroup),
-	'From'=>array('address'=>$fromAddress,'group'=>$fromGroup),
-	'Signature'=>$signature,
-	'FromBalance'=>$fromBalance
+	'amount'=>$amount,
+	'to'=>array('address'=>$toAddress,'group'=>$toGroup,'balance'=>$fromBalance),
+	'from'=>array('address'=>$fromAddress,'group'=>$fromGroup),
+	'signature'=>$signature
 ));
 
 ?>

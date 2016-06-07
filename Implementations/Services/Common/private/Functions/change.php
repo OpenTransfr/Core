@@ -1,6 +1,15 @@
 <?php
 
 /*
+* Implement this interface and set it to a global called $onChanged.
+* The run function is called when changed() is called.
+* It's typically done inside (or in a file included from) your settings.php
+*/
+interface OnChanged{
+  public function run($change);
+}
+
+/*
 * Functionality which tracks changing data. Changes can be used to reconstruct anything (such as the balance table).
 */
 
@@ -26,8 +35,24 @@ function changed($type,$fields){
 	// Run the query:
 	$dz->query( $query );
 	
+	// Got an on changed function?
+	global $onChanged;
+	
+	if(isset($onChanged)){
+		
+		// Yes - let's run it now:
+		$onChanged->run(
+			array(
+				'Type'=>$type,
+				'Content'=>$fields,
+				'Signature'=>$pubsig,
+				'RequestID'=>$id
+			)
+		);
+		
+	}
+	
 }
-
 
 /*
 * Builds an SQL update string using the given fields.
@@ -82,6 +107,51 @@ function changes($fields){
 	}
 	
 	return $changes;
+	
+}
+
+/*
+* Process the data from a tx change.
+*/
+function processTxChange($change){
+	
+	global $dz;
+	
+	// Get the row:
+	$row=$dz->get_row('select * from `Bank.Incomings` where `Key`=unhex("'.$change['to']['address'].'")');
+	
+	if(!$row || $row['Status']){
+		// Some other bank, or we've already processed it etc.
+		return;
+	}
+	
+	// Update the status:
+	$dz->query('update `Bank.Incomings` set `Status`=1 where `ID`='.$row['ID']);
+	
+	// Get the from address:
+	$from=$dz->get_row('select `Commodity` from `Root.Balances` where `Key`=unhex("'.$change['from']['address'].'")');
+	
+	if(!$from){
+		// Database is out of sync.
+		serverError();
+	}
+	
+	// Build the details set for the receive call:
+	$details=array(
+		'Commodity'=>$from['Commodity'],
+		'Amount'=>$change['amount'],
+		'Reference'=>$row['Reference'],
+		'Title'=>$row['Title'],
+		'Name'=>$row['Name'],
+		'FromUsername'=>$row['From'],
+		'ItemInformation'=>$row['ItemInformation']
+	);
+	
+	// Receive it:
+	receive($details,$row['Account']);
+	
+	// Finish by completing the status:
+	$dz->query('update `Bank.Incomings` set `Status`=2 where `ID`='.$row['ID']);
 	
 }
 

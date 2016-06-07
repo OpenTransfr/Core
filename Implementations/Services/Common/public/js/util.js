@@ -4660,6 +4660,45 @@ Bitcoin.Util = {
 	}
 };
 
+function loadQueryString(str){
+	
+	var vars={};
+	
+	var set=str.split("&");
+	for(var i=0;i<set.length;i++){
+		
+		var pair = set[i].split("=");
+		
+		var val='';
+		
+		if(pair.length==2){
+			val=pair[1];
+		}
+		
+		vars[pair[0]]=urldecode(val);
+	}
+	
+	return vars;
+}
+
+function methodLocation(method){
+	if(method.substring(0,6)=='https:'){
+		return method;
+	}
+	
+	if(method[0]!='/'){
+		method='/v'+API.Version+'/'+method;
+	}
+	
+	return method;
+}
+
+function requestJson(endpoint,done,json){
+	Ajax.request(methodLocation(endpoint),function(d){
+		done(JSON.parse(d));
+	},json);
+}
+
 /*
 * Makes a request on behalf of this device.
 * Must have already entered the pin to do this.
@@ -4674,10 +4713,10 @@ function request(endpoint,onDone,payload){
 	// Build a JWS:
 	var header=null;
 	
-	if(Device){
+	if(Account && Account.device){
 		
 		// Use the assigned device ID.
-		header={device:Device.ID};
+		header={device:Account.device.id};
 		
 	}else{
 		
@@ -4687,7 +4726,7 @@ function request(endpoint,onDone,payload){
 			// Must allocate a device.
 			allocateDevice('',function(){
 				
-				if(!Device){
+				if(!Account || !Account.device){
 					// Code error! This should never happen.
 					throw new Exception('Device was not registered.');
 				}
@@ -4708,12 +4747,8 @@ function request(endpoint,onDone,payload){
 	// Build the JWS:
 	var jwsData=jws(header,'',payload);
 	
-	if(endpoint[0]!='/'){
-		endpoint='/v1/'+endpoint;
-	}
-	
 	// Run the request now:
-	Ajax.request(endpoint,function(d,req){
+	Ajax.request(methodLocation(endpoint),function(d,req){
 		
 		// Got a 'sequence' header?
 		var seq=req.getResponseHeader('Sequence');
@@ -4721,17 +4756,59 @@ function request(endpoint,onDone,payload){
 		if(seq){
 			
 			// Update the sequence:
-			Device.sequence=seq;
+			Account.device.sequence=seq;
 			
-			// Save it:
-			storage.write("cid",JSON.stringify(Device),function(e,v){});
+			// Save accounts:
+			saveAccounts();
 			
 		}
 		
-		d=JSON.parse(d);
+		if(d==''){
+			d=null;
+		}else{
+			d=JSON.parse(d);
+		}
 		
 		onDone(d,req);
 	},jwsData);
+	
+}
+
+var Account=null;
+var Accounts=[];
+
+function getAccount(user){
+	for(var i in Accounts){
+		var acc=Accounts[i];
+		if(acc.username==user){
+			return acc;
+		}
+	}
+	return null;
+}
+
+function addAccount(pin){
+	
+	// Saving Account into Accounts (if it's not already in there).
+	if(!Account){
+		return;
+	}
+	
+	var a=getAccount(Account.username);
+	
+	if(!a){
+		Accounts.push(Account);
+	}
+	
+	// Save the private key:
+	saveKeyEncrypted(pin);
+	
+}
+
+function saveAccounts(){
+	
+	// Write out the accounts now:
+	storage.write("acc",JSON.stringify(Accounts),function(e,v){});
 	
 }
 
@@ -4741,42 +4818,37 @@ function saveKeyEncrypted(pin){
 	var rawKey=currentKey.getPrivateKeyByteArray();
 	
 	// Encrypt it with the pin:
-	var encr=Crypto.AES.encrypt(rawKey,pin+"-"+Device.ID,{asBytes:true});
+	var encr=Crypto.AES.encrypt(rawKey,pin+"-"+Account.device.id,{asBytes:true});
 	
 	// Write it out:
-	storage.write("prk",Crypto.util.bytesToHex(encr),function(e,v){});
+	var hexPk=Crypto.util.bytesToHex(encr);
+	
+	if(Account){
+		Account.prk=hexPk;
+	}
+	
+	saveAccounts();
 	
 }
 
-function loadKeyEncrypted(od,pin,existsOnly){
+function loadKeyEncrypted(od,pin){
 	
-	if(currentKey){
-		od(false);
+	if(!Account || !Account.prk){
 		return;
 	}
 	
-	storage.read("prk",function(r,v){
-		
-		if(v){
-			
-			// Decrypt it now:
-			var encPK=Crypto.AES.decrypt(Crypto.util.hexToBytes(v),pin+"-"+Device.ID,{asBytes:true});
-			
-			// Note that the private key is always valid but simply wrong
-			// when the pin is incorrect. The only way we can know if they got
-			// the pin right is by attempting an auth request using this key.
-			
-			// Create the key:
-			currentKey=new Bitcoin.ECKey(encPK);
-			
-		}else if(!existsOnly){
-			currentKey=generateKey();
-		}
-		
-		od((currentKey!=null));
-		
-	});
+	// Decrypt it now:
+	var encPK=Crypto.AES.decrypt(Crypto.util.hexToBytes(Account.prk),pin+"-"+Account.device.id,{asBytes:true});
 	
+	// Note that the private key is always valid but simply wrong
+	// when the pin is incorrect. The only way we can know if they got
+	// the pin right is by attempting an auth request using this key.
+	
+	// Create the key:
+	currentKey=new Bitcoin.ECKey(encPK);
+	
+	od((currentKey!=null));
+
 }
 
 
@@ -4901,9 +4973,9 @@ function jws(header,pHeader,payload,key){
 	pHeaderJSON.id=id;
 	pHeaderJSON.pubsig=pubsig;
 	
-	if(Device && Device.sequence){
+	if(Account && Account.device && Account.device.sequence){
 		// Apply the sequence code:
-		pHeaderJSON.seq=Device.sequence;
+		pHeaderJSON.seq=Account.device.sequence;
 		
 	}
 	
@@ -5046,8 +5118,6 @@ function formToJson(form){
 	
 }
 
-var Device=null;
-
 /*
 * Allocates a new ID for this device.
 */
@@ -5056,10 +5126,7 @@ function allocateDevice(name,done){
 	request('device/create',function(d){
 		
 		// We got a new device ID and sequence code!
-		Device=d;
-		
-		// Save the CID and sequencec:
-		storage.write("cid",JSON.stringify(d),function(e,v){});
+		Account={device:d};
 		
 		if(done){
 			done();
@@ -5091,11 +5158,13 @@ function randomPin(size){
 
 function setupDevice(){
 	
-	// Load the device ID:
-	storage.read("cid",function(r,d){
+	// Load the accounts:
+	storage.read("acc",function(r,d){
 		
 		if(d){
-			Device=JSON.parse(d);
+			Accounts=JSON.parse(d);
+			// Pick the 0th account by default:
+			Account=Accounts[0];
 		}
 		
 	});

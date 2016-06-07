@@ -90,10 +90,10 @@ $dz->query('update `Root.Balances` set `Entity`='.$verifiedEntity.' where `Key`=
 
 // Create a clm record (occurs in balance/claim/success as well):
 changed('clm',array(
-	'Entity'=>$verifiedEntityEndpoint,
-	'Address'=>$address,
-	'Signature'=>$signature,
-	'Balance'=>$balance
+	'entity'=>$verifiedEntityEndpoint,
+	'address'=>$address,
+	'signature'=>$signature,
+	'balance'=>$balance
 ));
 
 ?>

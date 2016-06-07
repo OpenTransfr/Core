@@ -40,7 +40,7 @@ This device's pin
 Congratulations - you've got a bank account!
 <br>
 <br>
-You can now go ahead and start sending or receiving money and <a href='#screen=account.balances'>check your balances</a>.
+You can now go ahead and start sending or receiving money and <a href='#screen=account.home'>check your balances</a>.
 </center>
 </div>
 <div id='account.create.2'>

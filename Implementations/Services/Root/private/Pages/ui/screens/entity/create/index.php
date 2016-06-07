@@ -148,7 +148,7 @@ Page={
 		
 		result.innerHTML=API.Loading;
 		
-		request(Page.onUploaded,function(d){
+		Ajax.request(Page.onUploaded,function(d){
 			
 			d=JSON.parse(d);
 				

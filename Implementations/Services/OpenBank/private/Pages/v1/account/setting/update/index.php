@@ -32,7 +32,7 @@ if(substr($setting, 0, 9)=='readonly.'){
 $value=safe('value',VALID_TEXT);
 
 // Does the setting already exist?
-$row=$dz->get_row('select `ID` from `Bank.AccountSettings` where `Account`='.$verifiedAccount.' and `Setting`="'.$setting.'"');
+$row=$dz->get_row('select `ID` from `Bank.Account.Settings` where `Account`='.$verifiedAccount.' and `Setting`="'.$setting.'"');
 
 if($row){
 	
@@ -42,19 +42,19 @@ if($row){
 	if($value==''){
 		
 		// Delete it:
-		$dz->query('delete from `Bank.AccountSettings` where ID='.$id);
+		$dz->query('delete from `Bank.Account.Settings` where ID='.$id);
 		
 	}else{
 	
 		// Update the row:
-		$dz->query('update `Bank.AccountSettings` set `Value`="'.$value.'" where `ID`='.$id);
+		$dz->query('update `Bank.Account.Settings` set `Value`="'.$value.'" where `ID`='.$id);
 		
 	}
 	
 }else{
 	
 	// Create it now:
-	$dz->query('insert into `Bank.AccountSettings`(`Setting`,`Value`,`Account`) values("'.
+	$dz->query('insert into `Bank.Account.Settings`(`Setting`,`Value`,`Account`) values("'.
 		$tag.'","'.$value.'",'.$verifiedAccount.')');
 	
 	// Get the ID:

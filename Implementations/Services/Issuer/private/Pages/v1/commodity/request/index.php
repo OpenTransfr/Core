@@ -81,7 +81,7 @@ if($parentPolicy!=1 && $parentPolicy!=2){
 // but we'll get it from the database for now):
 $entity=$dz->get_row('select Endpoint from `Root.Entities` where ID='.$verifiedEntity);
 
-if(!isset($entity['Endpoint'])){
+if(!$entity){
 	
 	// Not possible - it wouldn't have verified a few ms ago, but just in case!
 	error('entity/notfound');
@@ -118,19 +118,34 @@ if($parentPolicy==1){
 	
 	// - Run this same code when accepting reviewed requests.
 	
+	// Get the policy name:
+	$policyName='closed';
+	
+	if($policy==1){
+		
+		// Public policy.
+		$policyName='public';
+		
+	}else if($policy==2){
+		
+		// Reviewed.
+		$policyName='reviewed';
+		
+	}
+	
 	// Now we call the root commodity/create API:
-	$rootCreate='{"tag":"'.$tag.'","policy":'.$policy.',"description":'.json_encode($description)
+	$rootCreate='{"tag":"'.$tag.'","policy":"'.$policyName.'","description":'.json_encode($description)
 		.',"name":'.json_encode($name).',"divisor":'.$divisor.',"issuer":"'.$futureIssuer.'"}';
 
 	// Send the request to root:
-	$response;
-	$result=callRoot('commodity/create',$rootCreate,$response);
+	$error;
+	$response=callRoot('commodity/create',$rootCreate,$error);
 	
-	if($result===false){
-		// Failed to request root! This is a 500 server error.
-		serverError();
+	if($error){
+		// Failed to request root.
+		error('root/failed',$error);
 	}
-
+	
 	// It was successful! futureIssuer is now the issuer of $tag.
 	// Let's tell them about it using the status API again:
 	issuerStatus($futureIssuer,$tag,'success');
@@ -148,8 +163,8 @@ if($parentPolicy==1){
 	// Add it to a pending table instead, 
 	// review it however you wish, then call the above with success/reject.
 	$dz->query('insert into `Issuer.Commodities.Pending` '
-	 		.'(`Tag`,`Description_en`,`Name_en`,`Divisor`,`Issuer`,`Policy`) values ("'
-			.$tag.'","'.$description_en.'","'.$name_en.'",'.$divisor.','.$verifiedEntity.','.$policy.')');
+	 		.'(`Tag`,`Description`,`Name`,`Divisor`,`Issuer`,`Policy`) values ("'
+			.$tag.'","'.escape( json_encode($description),false).'","'.escape( json_encode($name),false).'",'.$divisor.','.$verifiedEntity.','.$policy.')');
 	
 	// Let the requester know that the request got here:
 	echo '{"status":"REVIEW"}';

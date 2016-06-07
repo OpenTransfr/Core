@@ -48,6 +48,6 @@ $dz->query(
 // Get the device row ID:
 $deviceID=$dz->insert_id();
 
-echo '{"ID":"'.$deviceID.'-'.$publicID.'","sequence":"'.$sequence.'"}';
+echo '{"id":"'.$deviceID.'-'.$publicID.'","sequence":"'.$sequence.'"}';
 
 ?>

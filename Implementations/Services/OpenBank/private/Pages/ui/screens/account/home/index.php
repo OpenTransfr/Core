@@ -1,9 +1,9 @@
-<div id='account.balances.0'>
+<div id='account.home.0'>
 <center>
 <div id='pin_status'></div>
 </center>
 </div>
-<div id='account.balances.1'>
+<div id='account.home.1'>
 
 <style type='text/css'>
 
@@ -177,30 +177,6 @@ Page={
 			
 		},pin,true);
 		
-	},
-	
-	load:function(){
-		
-		var result=document.getElementById('account.balances.0_load');
-		
-		btn.style.display='none';
-		
-		result.innerHTML=API.Loading;
-		
-		// Get the balances now:
-		request('account/balances',function(d){
-			
-			if(d.ID){
-				
-			}else{
-				
-				// It errored!
-				result.innerHTML="<br>"+Error.display(d);
-				
-			}
-			
-			btn.style.display='';
-		});
 	}
 	
 };

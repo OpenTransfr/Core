@@ -185,12 +185,12 @@ $dz->query('insert into `Root.Entities` (`Key`,`Endpoint`,`Type`,`Group`,`Name`,
 
 // Create the change event too:
 changed('entity',array(
-	'Key'=>$hexPublicKey,
-	'Type'=>$row['Type'],
-	'Endpoint'=>$domain,
-	'Group'=>$thisEntity['Group'],
-	'Name'=>$row['Name'],
-	'Country'=>$row['Country']
+	'key'=>$hexPublicKey,
+	'type'=>$row['Type'],
+	'endpoint'=>$domain,
+	'group'=>$thisEntity['Group'],
+	'name'=>$row['Name'],
+	'country'=>$row['Country']
 ));
 
 echo '{"entity":"'.$domain.'"}';

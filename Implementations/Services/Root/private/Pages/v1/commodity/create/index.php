@@ -44,7 +44,7 @@ if($exists){
 // Does the future issuer exist?
 $exists=$dz->get_row('select ID from `Root.Entities` where Endpoint="'.$issuer.'"');
 
-if($exists){
+if(!$exists){
 	
 	// Didn't find the entity that wants to issue it.
 	error('entity/notfound');
@@ -62,7 +62,7 @@ $issuerID=$exists['ID'];
 
 $parentIssuer=findParent($tag);
 
-if($parentIssuer===null){
+if(!$parentIssuer){
 	// No suitable parent commodity was not found.
 	error('commodity/notfound');
 }
@@ -77,12 +77,12 @@ if($verifiedEntity!=$parentIssuer['ID']){
 $dz->query('insert into `Root.Commodities` (`Tag`,`Description_en`,`Name_en`,`Divisor`,`Issuer`,`Policy`) values ("'.$tag.'","'.$description_en.'","'.$name_en.'",'.$divisor.','.$issuerID.','.$policy.')');
 
 changed('com',array(
-	'Tag'=>$tag,
-	'Description'=>array('en'=>$description_en),
-	'Name'=>array('en'=>$name_en),
-	'Divisor'=>$divisor,
-	'Issuer'=>$issuer,
-	'Policy'=>$policy
+	'tag'=>$tag,
+	'description'=>array('en'=>$description_en),
+	'name'=>array('en'=>$name_en),
+	'divisor'=>$divisor,
+	'issuer'=>$issuer,
+	'policy'=>$policy
 ));
 
 // Is this already forwarded? If so, stop there.

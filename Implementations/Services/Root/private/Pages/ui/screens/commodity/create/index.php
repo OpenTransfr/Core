@@ -30,7 +30,7 @@ Give your commodity a name
 And a quick description of what it is (optional)
 <br>
 <br>
-<input name='name' class='inputBox' type='text' placeholder='A dashing currency suitable only for Galactic Empires.'>
+<input name='description' class='inputBox' type='text' placeholder='A dashing currency suitable only for Galactic Empires.'>
 <br>
 <br>
 The tag of your new commodity
@@ -69,6 +69,9 @@ Congratulations - your commodity has been created!
 <br>
 <br>
 You can now go ahead and start issuing it using the commodity/issue API.
+<br>
+<br>
+PHP Issuer API users: it's available as the function issue('your.commodity.tag',amountToIssue)
 </center>
 </div>
 <div id='commodity.create.3'>
@@ -184,13 +187,21 @@ Page={
 		}
 		
 		// Convert the form to JSON:
-		var json=formToJson(form);
+		var json=formToFields(form);
+		
+		// Wrap name/description in objects with an 'en' property:
+		json.name={en:json.name};
+		json.description={en:json.description};
 		
 		// Build the JWS:
 		json=jws(Entity,'',json);
 		
-		// Submit it to the parent issuer now!
-		requestJson('https://'+Page.tagParent.Issuer+'/v1/commodity/request',function(d){
+		// NOTE: This is to avoid cross-origin problems.
+		// You could send directly to this URL instead:
+		// 'https://'+Page.tagParent.Issuer+'/v1/commodity/request'
+		
+		// Submit it to the sub-create
+		requestJson('/ui/commodity/subcreate',function(d){
 			
 			if(d.status){
 				

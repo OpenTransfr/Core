@@ -1,0 +1,1 @@
+-> Ready for payment-> Add products/ discounts-> Add reference (needed? Maybe clear should just generate one?)

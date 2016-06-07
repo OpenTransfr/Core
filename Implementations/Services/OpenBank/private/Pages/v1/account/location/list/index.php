@@ -11,7 +11,7 @@ if($verifiedAccount==0){
 }
 
 // Get the locations:
-$locations=$dz->get_list('select * from `Bank.AccountLocations` where `Account`='.$verifiedAccount);
+$locations=$dz->get_list('select * from `Bank.Account.Locations` where `Account`='.$verifiedAccount);
 
 // Show the list now!
 showList($locations,array('ID','Name','Type','Content','Preference'));

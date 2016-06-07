@@ -11,7 +11,7 @@ if($verifiedAccount==0){
 }
 
 // Get the settings:
-$settings=$dz->get_list('select * from `Bank.AccountSettings` where `Account`='.$verifiedAccount);
+$settings=$dz->get_list('select * from `Bank.Account.Settings` where `Account`='.$verifiedAccount);
 
 // Show the list now!
 showList($settings,array('ID','Setting','Value'));

@@ -97,12 +97,12 @@ $changes=changes(array('Issuer'=>$newIssuerID,'Divisor'=>$divisor,'Name_en'=>$na
 $dz->query('update `Root.Commodities` set '.$changes.' where ID='.$commodity['ID']);
 
 changed('com',array(
-	'Tag'=>$tag,
-	'Description'=>array('en'=>$description_en),
-	'Name'=>array('en'=>$name_en),
-	'Divisor'=>$divisor,
-	'Issuer'=>$newIssuer,
-	'Policy'=>$policy
+	'tag'=>$tag,
+	'description'=>array('en'=>$description_en),
+	'name'=>array('en'=>$name_en),
+	'divisor'=>$divisor,
+	'issuer'=>$newIssuer,
+	'policy'=>$policy
 ));
 
 ?>

@@ -21,16 +21,6 @@ $user=strtolower( safe('username',VALID_NAME) );
 // Email address:
 $email=strtolower( safe('email',VALID_EMAIL) );
 
-// Already exists?
-$row=$dz->get_row('select ID from `Bank.Accounts` where `Email`="'.$email.'"');
-
-if($row){
-	
-	// Email used.
-	error('email/exists');
-	
-}
-
 // Has the device already got an account assigned to it? If so, another device entry is required.
 // This prevents one device having access to potentially thousands of accounts (i.e. badly implemented API users).
 if($verifiedAccount!=0){
@@ -57,12 +47,13 @@ $signPair=generateKeyPair();
 $pubSignKey=bin2hex($signPair['public']);
 
 // 'Claim' the username by calling the root API:
-$result=null;
-$success=callRoot('username/create','{"username":"'.$user.'","public_key":"'.$pubSignKey.'"}',$result);
+$error;
+$result=callRoot('username/create','{"username":"'.$user.'","public_key":"'.$pubSignKey.'"}',$error);
 
-if(!$success){
+if($error){
 	
 	// Error claiming the username.
+	// This mainly indicates that one or more people tried to obtain it at the same time.
 	error('username/unclaimed');
 	
 }
@@ -80,7 +71,7 @@ $dz->query(
 $accountID=$dz->insert_id();
 
 // Apply account settings next.
-$dz->query('insert into `Bank.AccountSettings`(`Setting`,`Value`,`Account`) values '.
+$dz->query('insert into `Bank.Account.Settings`(`Setting`,`Value`,`Account`) values '.
 	
 	// Create the favourite commodity setting:
 	'("commodity.pref","'.$bankCurrency.'",'.$accountID.'), '.

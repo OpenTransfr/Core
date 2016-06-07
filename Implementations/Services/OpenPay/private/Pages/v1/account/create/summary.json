@@ -1,0 +1,54 @@
+{
+	"description":{
+		"en":"Used to create a new entity such as a bank, root or issuer."
+	},
+	"request":{
+		"headers":{
+			"Content-Type":"application/json"
+		},
+		"post":{
+			"type":"types/jws",
+			"signer":"Signed using the new entities private key.",
+			"header":{
+				"pk":{
+					"type":"string",
+					"description":{
+						"en":"The public key of the entity, hex. See JWS for more details."
+					}
+				}
+			},
+			"payload":{
+				"name":{
+					"type":"string",
+					"description":{
+						"en":"The local name of the entity."
+					}
+				},
+				"country":{
+					"type":"string",
+					"description":{
+						"en":"The iso2 country code. For example, 'GB' refers to the United Kingdom."
+					}
+				},
+				"domain":{
+					"type":"string",
+					"description":{
+						"en":"The lowercase domain name of the entity. You'll be asked to prove that you own it. Typically connect.yoursite.com, bank.yoursite.com or txroot.yoursite.com. Punycode is supported."
+					}
+				},
+				"type":{
+					"type":"string",
+					"desription":{
+						"en":"The type of entity that this will primarily be. It's either: 'bank', 'verifier', 'merchant', 'issuer' or just a blank string."
+					}
+				}
+			}
+		},
+		"example":{
+		
+		}
+	},
+	"response":{
+		"type":"types/challenges"
+	}
+}

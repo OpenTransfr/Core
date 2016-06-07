@@ -81,11 +81,11 @@ $content=json_encode($content);
 
 // Note: Newest locations always take top preference.
 // They do this by adding 1 to all the other locations owned by this account like so:
-$dz->query('update `Bank.AccountLocations` set `Preference`=`Preference`+1 where `Account`='.$verifiedAccount);
+$dz->query('update `Bank.Account.Locations` set `Preference`=`Preference`+1 where `Account`='.$verifiedAccount);
 
 // Insert the row now (which will have a pref of 0 by default)
 // Note that everything except $content has been escaped.
-$dz->query('insert into `Bank.AccountLocations`(`Name`,`Account`,`Type`,`Content`) values("'.
+$dz->query('insert into `Bank.Account.Locations`(`Name`,`Account`,`Type`,`Content`) values("'.
 			$name.'",'.$verifiedAccount.',"'.$type.'","'.escape($content).'")');
 
 // Get the ID:

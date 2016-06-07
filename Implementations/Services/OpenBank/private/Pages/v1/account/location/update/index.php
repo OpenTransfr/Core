@@ -21,7 +21,7 @@ $name=safe('name',VALID_TITLE,null,true);
 $changeQuery=changes(array('Preference'=>$preference,'Name'=>$name));
 
 // Update the location now:
-$result=$dz->query('update `Bank.AccountLocations` set '.$changeQuery.' where `Account`='.$verifiedAccount.' and `ID`='.$id);
+$result=$dz->query('update `Bank.Account.Locations` set '.$changeQuery.' where `Account`='.$verifiedAccount.' and `ID`='.$id);
 
 if(!$result){
 	

@@ -6,6 +6,8 @@
 // To access a particular address, they must also sign the 
 // transaction data with the private key of the address.
 
+postedTo();
+
 $from=safe('from',VALID_ARRAY);
 $to=safe('to',VALID_ARRAY);
 
@@ -71,7 +73,7 @@ $signature=safe('signature',VALID_BASE64);
 $signed=$fromGroup.'/'.$fromAddress.'-'.$toGroup.'/'.$toAddress.'-'.$amount.'-'.$fromBalance;
 
 // Verify the signature:
-if(!verify($signature,$signed,$publicKey)){
+if(!verify($signature,$signed,hex2bin($fromAddress))){
 	
 	// Invalid.
 	error('signature/invalid');
@@ -194,11 +196,10 @@ if(!$outbound){
 
 // Create a tx record (occurs in transfer/create/success as well):
 changed('tx',array(
-	'Amount'=>$amount,
-	'To'=>array('address'=>$toAddress,'group'=>$toGroup),
-	'From'=>array('address'=>$fromAddress,'group'=>$fromGroup),
-	'Signature'=>$signature,
-	'FromBalance'=>$fromBalance
+	'amount'=>$amount,
+	'to'=>array('address'=>$toAddress,'group'=>$toGroup,'balance'=>$fromBalance),
+	'from'=>array('address'=>$fromAddress,'group'=>$fromGroup),
+	'signature'=>$signature
 ));
 
 // Is it going out of this root?

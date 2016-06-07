@@ -45,7 +45,7 @@ if($sub['Amount']){
 	}
 	
 	// Try JSON decoding it:
-	$response=json_decode($response);
+	$response=json_decode($response,true);
 	
 	if(!$response){
 		

@@ -101,13 +101,12 @@ if(!$outbound){
 	$dz->query('update `Root.Balances` set Balance=Balance+'.$amount.',LockedBalance=LockedBalance-'.$amount.' where `Key`=UNHEX("'.$toAddress.'")');
 }
 
-// Create a tx record (occurs in transfer/create/success as well):
+// Create a tx record (occurs in transfer/create as well):
 changed('tx',array(
-	'Amount'=>$amount,
-	'To'=>array('address'=>$toAddress,'group'=>$toGroup),
-	'From'=>array('address'=>$fromAddress,'group'=>$fromGroup),
-	'Signature'=>$signature,
-	'FromBalance'=>$fromBalance
+	'amount'=>$amount,
+	'to'=>array('address'=>$toAddress,'group'=>$toGroup,'balance'=>$fromBalance),
+	'from'=>array('address'=>$fromAddress,'group'=>$fromGroup),
+	'signature'=>$signature
 ));
 
 ?>

@@ -85,9 +85,9 @@ $dz->query('update `Root.Balances` set Balance=Balance+'.$amount.',LockedBalance
 
 // Create an issue record (occurs in issue/success as well):
 changed('issue',array(
-	'Amount'=>$amount,
-	'To'=>$hexAddress,
-	'Tag'=>$tag
+	'amount'=>$amount,
+	'to'=>$hexAddress,
+	'tag'=>$tag
 ));
 
 ?>

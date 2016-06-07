@@ -40,7 +40,7 @@ This device's pin
 Congratulations - you've got a bank account!
 <br>
 <br>
-You can now go ahead and start sending or receiving money and <a href='#screen=account.balances'>check your balances</a>.
+You can now go ahead and start sending or receiving money and <a href='#screen=account.home'>check your balances</a>.
 </center>
 </div>
 <div id='account.create.2'>
@@ -59,32 +59,31 @@ Page={
 	
 	builtUsername:'',
 	nameClear:false,
+	generatedPin:0,
 	
 	onChangeMode:function(mode){
 		
 		// Called when screens are changed.
 		if(mode==0){
+			var ph=document.getElementById('pin_holder');
+			
+			if(!ph){
+				return;
+			}
+			
 			// Generate a new pin.
+			
 			var pin=randomPin();
-			document.getElementById('pin_holder').value=pin;
+			ph.value=pin;
+			Page.generatedPin=pin;
 			
 			// Register this device if needed:
-			if(Device && currentKey){
+			if(!Account){
 				
-				// Store the private key encrypted:
-				saveKeyEncrypted(pin);
-				
-			}else{
-				
-				Device=null;
+				Account=null;
 				currentKey=null;
 				
-				allocateDevice('',function(){
-					
-					// Store the private key, encrypted with the pin:
-					saveKeyEncrypted(pin);
-					
-				});
+				allocateDevice('',function(){});
 				
 			}
 			
@@ -208,22 +207,24 @@ Page={
 		
 		var result=document.getElementById('account.create.0_load');
 		
-		if(!Device){
-			// Generate a new device:
-			generateDevice();
-		}
-		
 		btn.style.display='none';
 		
 		result.innerHTML=API.Loading;
 		
 		// Convert the form to JSON:
-		var json=formToJson(form);
+		var fields=formToFields(form);
+		var json=JSON.stringify(fields);
 		
 		// Create the account now!
 		request('account/create',function(d){
 			
 			if(d.ID){
+				
+				// Update the username:
+				Account.username=fields.username;
+				
+				// Save the account!
+				addAccount(Page.generatedPin);
 				
 				if(d.status && d.status=='REVIEW'){
 					// Submitted for review.
