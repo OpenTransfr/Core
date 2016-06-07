@@ -6,6 +6,7 @@ Network Components
    :glob:
 
    Transactions
+   Consensus
    Issuers/index.rst
    Commodities/index.rst
    Banks/index.rst
