@@ -33,6 +33,9 @@ The data to sign is as follows:
 
 '["178.232..","178.233..","2a03:b0c0:.."]' // Sign this string with your private entity key.
 
+5. Base64 encode the signature.
+6. Append '@Unix time in milliseconds' to the end.
+
 Anyone wishing to verify the signature can perform the same steps as above and use your public entity key.
 
 A Javascript implementation is available at https://txroot.opentrans.fr/v1/dev. Pop open the console, load your private key with loadKey("hex_key") or generate one for testing with generateKey(), then call signIPs("your.domain.com").
