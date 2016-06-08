@@ -44,3 +44,8 @@ Ascending to root
 -----------------
 
 In order to become fully certified and act as a root node, an entity must prove that it is regulated by a financial regulator (for example, the FCA in the United Kingdom). They submit the reference number with the regulator to root, which in turn then check the entity details match those of the regulator. If a majority agree, then a minimum delay of 5 days begins, after which the entity can then act as a root node. 
+
+Delivery Addresses
+------------------
+
+Banks play a key role in the checkout process, giving them more scope for value adds as well as more scope for user convenience. Delivery addresses are a prime example of user convenience; as a consumer, having to type out a delivery address is a repetitive chore. A bank can act as the single place where delivery addresses are stored, opening the door for innovation in delivery systems as well as new forms of address (for example, GPS coordinates or a 'moving object reference' for clever automated delivery). This also allows for tight integration with a delivery service enabling a bank to obtain proof of delivery in an automated way, aiding with any form of 'product not delivered' fraud claims. Similarly, a bank can also store which businesses a consumer trusts in order to enable minimal click transactions during checkout.

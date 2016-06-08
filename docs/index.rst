@@ -14,7 +14,7 @@ This documentation describes the structure of all parts of the network in depth.
 What is OpenTransfr?
 --------------------
 
-OpenTransfr is a design for a payment system designed to handle currencies and commodities that you see and use everyday such as pound sterling or the US dollar. It's primary goals are to be free, fast and open to everyone to allow as much innovation as possible in the financial sector. This network takes concepts from cryptocurrency networks and combines them with traditional systems to create a hybrid that works for everyone. This brings up two questions - why do we need new transaction systems, and what's wrong with cryptocurrencies?
+OpenTransfr is a design for a payment system built to handle currencies and commodities that you see and use everyday such as the Pound Sterling or the US dollar. Its primary goals are to be free, fast and open to everyone to allow as much innovation as possible in the financial sector. This system takes concepts from cryptocurrency networks and combines them with traditional systems to create a hybrid that works for everyone. This brings up two questions - why do we need new transaction systems, and what's wrong with cryptocurrencies?
 
 Why do we need a new system?
 ----------------------------
