@@ -18,7 +18,7 @@ Major parent tags such as 'currency' will always perform reviews on sub tag requ
 Direct Benefits
 ---------------
 
-The most notable advantage to issuers is the ability to see all circulation in action, international included, and respond accordingly. No form of mining is required so creating a currency is both easier and more secure than it is today. Central Banks are still required to play an ongoing and important role in the global financial system.
+The most notable advantage to issuers is the ability to see all circulation in action, international included, and respond accordingly. No form of mining is required so creating a currency is both easier and more secure than it is today. Although settlement is relatively instant, Central Banks are still required to play an ongoing and important role in the global financial system.
 
 Issuing Vouchers
 ----------------

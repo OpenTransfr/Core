@@ -36,6 +36,21 @@ This is the flow of a transaction from one root to another.
 
 In the event of a link failure, the sending root tries again, with a flag stating that this transaction is being repeated. If this flag is set, the remote root checks to see if the same transaction had been processed before by looking it up in its transaction history. If it had been processed before, the remote root simply informs that the transaction has been completed.
 
+High Latency Transaction
+------------------------
+
+These transactions are of the form of latency like nothing that has ever been seen on the internet before; the hypothetical link between Earth and a near future colony on Mars. Everything else simply falls into the (relatively fast) external root transaction system above. Such a link can be handled as follows:
+
+1. The vast majority of transactions are Earth to Earth and Mars to Mars. They all are completey unaffected by the existence of such a high latency link. For a Mars to Earth or Earth to Mars transaction, there are a few small yet important additions to some of the APIs.
+2. When a username is looked up by the sender, it can be seen that the receiver's bank is on a different planet. We'll still need an address to send to though, but we can't reasonably ask the remote bank without an hour plus long wait.
+3. An address cache is introduced to resolve this. 'Mars Bank' generates a large number of private keys then sends the public keys down to Earth. This address cache on Earth is then the primary source for username to address requests.
+4. The Mars Bank entity on Earth simply has a different domain name to the one seen on Mars.
+5. The username to address method can respond with an expected transaction delay as well as responding with an 'exhausted addresses - try later' error. With this, the sender can know immediately that the transaction has been submitted and how long it is projected to take.
+6. An external root transaction occurs as normal.
+7. The resulting transaction data, along with the transaction information in the cache, is uploaded to the remote planet.
+
+In effect, with just a small addition to the username lookup, such a link can be handled with ease.
+
 .. _ecdsaRandom:
 
 Random Numbers
@@ -43,7 +58,7 @@ Random Numbers
 
 .. image:: http://imgs.xkcd.com/comics/random_number.png
 
-Although it's a fairly moot point, you **must** ensure that your random number generator actually works rather than simply returning the same value repeatedly. ECDSA requires a random number during the signing process. It is possible to recover the private key from two signatures (the data signed doesn't matter) if they shared the same random number. Even relatively weak random number generators are incredibly unlikely to produce the same number twice due to the sheer size of the numbers involved, so long as it actually returns a new number. For more information on this hack, see this great article http://www.nilsschneider.net/2013/01/28/recovering-bitcoin-private-keys.html and how the hack was applied to the PS3 https://events.ccc.de/congress/2010/Fahrplan/attachments/1780_27c3_console_hacking_2010.pdf.
+Although it's a fairly moot point, you **must** ensure that your random number generator actually works rather than simply returning the same value repeatedly. ECDSA requires a random number during the signing process. It is possible to recover the private key from two signatures (the data signed doesn't matter) if they shared the same random number. Even relatively weak random number generators are incredibly unlikely to produce the same number twice due to the sheer size of the numbers involved, so long as it actually returns a new number. For more information on this hack, see this great article http://www.nilsschneider.net/2013/01/28/recovering-bitcoin-private-keys.html and how the hack was applied to the PS3 https://events.ccc.de/congress/2010/Fahrplan/attachments/1780_27c3_console_hacking_2010.pdf. The more bits of the 'random' number that are known, the easier it is to pull off this hack.
 
 .. _addrClaim:
 
