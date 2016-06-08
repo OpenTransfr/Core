@@ -25,7 +25,7 @@ Why do we need a new system?
 - Extremely limited information in the existing banking system on e.g. what has been purchased and where from
 - As a consumer, I have no idea who currently holds my card details. This creates security problems, plus..
 - It’s difficult to know what payments will actually be leaving your bank account and when
-- Too much trust is placed with merchants in dealing with card details, e.g. providing them over the phone is a major security risk. This creates hassle for merchants as they have to deal with extra security measures, and large targets for people who want to steal lucrative card details.
+- Too much trust is placed with merchants in dealing with card details, e.g. providing them over the phone is a major security risk. This creates hassle for merchants as they have to deal with extra security measures and makes them large targets for people who want to steal lucrative card details.
 
 Why not use cryptocurrencies out of the box?
 --------------------------------------------
@@ -38,7 +38,7 @@ First and foremost, cryptocurrencies have changed everything. Their existing set
 - Shrouded in legal problems because of a total lack of regulation. As a result, Banks and Governments strongly dislike it.
 - Blockchain systems waste far too much energy
 - Addresses look too complicated for consumers
-- People keep loosing their private keys and as a result, permanently loosing access to their value.
+- People keep losing their private keys and as a result, permanently loosing access to their value.
 - Blockchain has fundamentally slow transaction speeds. A Bitcoin transaction can take anywhere from 10 minutes to a whole day as the network throughput is seemingly maxing out at 1 transaction per second.
 - Current cryptocurrency systems essentially completely fail to scale, particularly where high latency links are introduced as the entire network is impacted.
 
@@ -65,23 +65,23 @@ Now we've got some of the baseline requirements, the major aspects of the system
 
 .. image:: images/Network-Overview.png
 
-- A tiered system. The very top tier, called the root, is the most trusted part of the network. There can be more than one root, grouped together based primarily on latency between the nodes. It's their job to authorise transactions. Everyone connects up to the root to collect information and submit requests, optionally forming new tiers of servers around the root to help spread load. Everything root does is publically visible and verifiable by anyone.
+- A tiered system. The very top tier, called the root, is the most trusted part of the network. There can be more than one root, each grouped together based primarily on latency between the nodes. It's their job to authorise transactions. Everyone connects up to the root to collect information and submit requests, optionally forming new tiers of servers around the root to help spread load. Everything root does is publically visible and verifiable by anyone.
 - Individual organisations in the root, each called a root node, hold a single 'vote' each. It doesn't matter how much computing power they have.
 - A majority of root nodes must all agree that a transaction is valid for it to go through. See the consensus mechanism for how they do that.
-- The tiering plus majority voting is what makes it a hybrid of centralised and distributed. This is considered most favourable because distributed systems have a habit of becoming centralised (think GitHub and Bitcoin itself), so it might as well be a trusted 'best of both'.
+- Tiers plus majority voting is what makes it a hybrid of centralised and distributed. This is considered most favourable because distributed systems have a habit of becoming centralised (think GitHub and Bitcoin itself), so it might as well be a trusted 'best of both'.
 - An organisation can become a root node if they are regulated by a recognised regulator in the root and submit a request to the root. We call this ascension and it's not required for a company to be able to send/ receive payments.
 - The root tracks current balances in all the known addresses. Addresses are anonymous and are the public keys of public-private key pairs.
 - Banks, known and trusted ones, store the set of private keys.
-- A username is related to a particular bank. A sender can ask a bank for a new address for a given username, then perform a transaction.
-- A transaction states which address value is coming from and which it is going to. It's signed using the senders private key.
+- A username is related to a particular bank. A sender asks a bank for a new address for a given username then performs a transaction.
+- A transaction states which address value is coming from and which it is going to. It's signed using the sender's private key.
 - Value enters the network when an issuer 'issues' it onto the network. For currencies, this would be a central bank role. For example, a central bank could receive its currency over a traditional transaction, and then issue the same amount onto the network.
 - There's only ever one issuer per commodity. This prevents any form of 'one pound/euro/dollar etc being worth more than another'. The Central Bank of a currency is intended to fulfil this role.
 - As the network handles multiple types of commodity, it has an exchange to swap one for another.
 - Everything will always be what we'll call a 'push' transaction; that's where the consumer is always sending value out of their account (either manually or as a result of a 'subscription'), rather than it being 'pulled' out by a merchant. This way the consumer can always see and know exactly what is going out of their bank and when, and cut something off without having to go through the existing major hassle of cancelling a card. Plus, merchants don't need to worry about security problems in order to take payments.
-- All payments will have much more metadata, known only by the users bank, allowing analysis and categorisation to be trivial. This would make things like tax payments entirely automatable.
-- Banks will share a common API allowing API users to setup subscriptions, perform payments, transfer an account to another bank etc.
+- All payments will have much more metadata, known only by the user's bank, allowing analysis and categorisation to be trivial. This would make things like tax payments entirely automatable.
+- Banks share a common API allowing users to setup subscriptions, perform payments, list history etc.
 
-The end results of the above are a network which is trustworthy, open, more secure than existing systems, distributed yet able to scale (because root is intended to be small groups of organisations and scaling problems would otherwise happen with the 'majority consensus' aspect) and built on a cryptographic guarentee.
+The end results of the above are a network which is trustworthy, open, more secure than existing systems, distributed yet able to scale (because root is intended to be small groups of organisations and scaling problems would otherwise happen with the 'majority consensus' aspect) and built on a cryptographic guarantee.
 
 For more detail on individual components, such as roots, issuers or commodities etc, see their related documentation.
 
@@ -110,8 +110,8 @@ In order to help better understand how the system actually works, let's describe
 **Consumers Bank**:
 
 7. The consumer authenticates with the device (e.g. a pin or biometrics), decrypting a private key. The device authenticates with the bank using a signature made with the private key.
-8. The consumers bank obtains the checkout information from the merchant services using the checkout code, essentially acting as a digital receipt. The merchant services also sends the merchants username along with checkout information to the receiving bank and gets a new address to send the payment to.
-9. The consumers bank displays the total to pay to the consumer.
+8. The consumer's bank obtains the checkout information from the merchant services using the checkout code, essentially acting as a digital receipt. The merchant services also send the merchant's username along with checkout information to the receiving bank and in response gets a new address to send the payment to.
+9. The consumer's bank displays the total to pay to the consumer.
 10. The consumer accepts it and, provided they have enough funds, the bank submits the payment to the root it's in.
 
 *Note: 7,8 and 9 all occur mostly in parallel*.
@@ -119,7 +119,7 @@ In order to help better understand how the system actually works, let's describe
 **Root**:
 
 11. Consensus occurs. The receiving root node forwards the request to other roots, they each sign it, and the signature collection is then sent to all root nodes and tested for majority.
-12. Provided consensus was reached, a payment to the address is broadcast out of the root. The bank and the users device are informed simply by the response.
+12. Provided consensus was reached, a payment to the address is broadcast out of the root. The bank and the user's device are informed simply by the response.
 
 *Note: 11 can occur in bulky batches with many other transactions*.
 *Note: Root nodes are operated by Banks and allowed in by a regulator*.
@@ -144,7 +144,7 @@ They work in mostly the same way. The checkout code is simply allocated differen
 Repeat charging
 ---------------
 
-As payments are always 'pushed', companies loose the ability to charge consumers unknown amounts at seemingly random times. This is replaced with subscriptions; essentially the equivelant of having a standard API for creating standing orders which can vary in value and occur at relatively complex intervals. Most importantly, they are always known by your bank. Goodbye horific credit card data leaks and hello payment certainty.
+As payments are always 'pushed', companies lose the ability to charge consumers unknown amounts at seemingly random times. This is replaced with subscriptions; essentially the equivalent of having a standard API for creating standing orders which can vary in value and occur at relatively complex intervals. Most importantly, they are always known by your bank. Goodbye horrific credit card data leaks and hello payment certainty.
 
 Reference Implementations
 -------------------------
@@ -163,8 +163,8 @@ The 5 major components (Bank, Root, Merchant, Issuer, Regulator) have in progres
 OpenTransfr itself does not charge any fees or define any form of interchange fee. However, many banks may need time to adjust to a different revenue system, so:
 
 - Merchant prices almost always include the transaction fees that they pay. So, it's recommended for merchants to provide a small discount for users paying using this network. The merchant still saves money as they don't need any form of monthly payments to a gateway service or any form of custom hardware.
-- The sending bank is able to charge a self-defined fee if they wish, although it's not recomended. These fees can only be defined as a % with a set limit which rounds down. For example, "0.12% up to £1". This fee is taken out of the discount.
-- From the consumers point of view, they see a discount of approximately 2% by using this system.
+- The sending bank is able to charge a self-defined fee if they wish, although it's not recommended. These fees can only be defined as a % with a set limit which rounds down. For example, "0.12% up to £1". This fee is taken out of the discount.
+- From the consumer's point of view, they see a discount of approximately 2% by using this system.
 
 Traditionally, security is the main reason given for fees. As this network is based upon cryptocurrencies and card details never pass through a merchant, the security aspect is a non-issue.
 

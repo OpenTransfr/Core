@@ -3,7 +3,7 @@
 Bank
 ====
 
-A bank is the consumer facing organisation that holds a users bank accounts. All banks must provide the Standard Bank API and declare the endpoint that their API is found at. Typically these will be banks that you recognise and trust; Anyone is able to setup a bank but only financially regulated ones are endorsed by the network itself. The ability for anyone to setup a bank is primarily for testing, entry and innovation uses.
+A bank is the consumer facing organisation that holds a user's bank accounts. All banks must provide the Standard Bank API and declare the endpoint that their API is found at. Typically these will be banks that you recognise and trust; anyone is able to setup a bank but only financially regulated ones are endorsed by the network itself. The ability for anyone to setup a bank is primarily for testing, entry and innovation uses.
 
 Setting up a bank
 -----------------

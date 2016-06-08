@@ -6,4 +6,4 @@ Merchants have an ordinary bank account like anyone else, except they simply use
 Salaries/ Wages
 ---------------
 
-Typically salaries are handled as subscriptions. In effect, the company is subscribing to an employee's work. This way the payment is entirely automated and it can safely vary from month to month too. Using device priviledges, a HR department can access these specific subscriptions.
+Typically salaries are handled as subscriptions. In effect, the company is subscribing to an employee's work. This way the payment is entirely automated and it can safely vary from month to month too. Using device privileges, a HR department can access these specific subscriptions.

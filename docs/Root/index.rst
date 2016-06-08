@@ -48,7 +48,7 @@ To become a root node, you'll need to:
 Root Node Safety
 ----------------
 
-Root nodes are extremely resiliant. A root node can be entirely hacked, taken offline or be situated in a natural disaster and the network will continue to function correctly. This is because:
+Root nodes are intended to be extremely resilient. A root node can be entirely hacked, taken offline or be situated in a natural disaster and the network will continue to function correctly. This is because:
 
 - Transaction requests must have majority
 - There are multiple precautions to prevent any single organisation accidentally providing a hacker with an instant majority. This includes `DNS registrars<rootNodeDns>`_ as well.

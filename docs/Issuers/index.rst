@@ -13,7 +13,7 @@ Without going into too much detail about commodities themselves, each commodity 
 Sub tag reviews
 ---------------
 
-Major parent tags such as 'currency' will always perform reviews on sub tag requests. A review essentially involves checking if a particular issuer has the right to issue a particular commodity. For example, a random user may request to issue a major currency that is currently not being issued. It is of course in the best interests of everyone that the Central Bank of that currency is it's issuer, or at the very least chooses who will issue it. If an issuer wishes to allow sub tags, it is that issuer that performs the review, and they may optionally charge a fee. Major top level tags such as 'currency' itself are intended to be owned and reviewed by, for example, the Bank for International Settlements.
+Major parent tags such as 'currency' will always perform reviews on sub tag requests. A review essentially involves checking if a particular issuer has the right to issue a particular commodity. For example, a random user may request to issue a major currency that is currently not being issued. It is of course in the best interests of everyone that the Central Bank of that currency is its issuer, or at the very least chooses who will issue it. If an issuer wishes to allow sub tags, it is that issuer that performs the review, and they may optionally charge a fee. Major top level tags such as 'currency' itself are intended to be owned and reviewed by, for example, the Bank for International Settlements.
 
 Direct Benefits
 ---------------
@@ -23,7 +23,7 @@ The most notable advantage to issuers is the ability to see all circulation in a
 Issuing Vouchers
 ----------------
 
-Vouchers are considered a form of commidity too which allows them to sit in a users bank account. This avoids the need for merchants to implement an account balance system; a merchant simply declares through merchant services that they accept those vouchers.
+Vouchers are considered a form of commodity too which allows them to sit in a user's bank account. This avoids the need for merchants to implement an account balance system; a merchant simply declares through merchant services that they accept those vouchers.
 
 Issuing Votes
 -------------

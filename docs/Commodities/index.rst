@@ -4,7 +4,7 @@
 Commodity
 =========
 
-A commodity is something that represents value. Usually these are currencies - like Euros or US Dollars - but they can also be things like property deeds, votes or shares in a company. Every bank_ can hold any commodity. Commodities come into existance when someone decides to become an issuer_ and issues it onto the network. To use a particular commodity like Euros, you'd use its commodityTag_.
+A commodity is something that represents value. Usually these are currencies - like Euros or US Dollars - but they can also be things like property deeds, votes or shares in a company. Every bank_ can hold any commodity. Commodities come into existence when someone decides to become an issuer_ and issues it onto the network. To use a particular commodity like Euros, you'd use its commodityTag_.
 
 .. _commodityTag:
 

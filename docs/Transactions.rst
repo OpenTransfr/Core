@@ -7,7 +7,7 @@ Transactions are of course the primary function of the network. All transactions
 
 1. All users of the network have a globally unique username. When a username is the target of a transaction, the sender looks up the owning bank of a username and obtains a public address from that bank.
 2. This public address is brand new and currently in an 'unclaimed' state.
-3. The transaction is 'dropped' on a root node. Let's call this root node the ReceiverRoot. The transaction is signed with the senders private key and optionally with the sending bank key, depending on if the sending address has been claimed.
+3. The transaction is 'dropped' on a root node. Let's call this root node the ReceiverRoot. The transaction is signed with the sender's private key and optionally with the sending bank key, depending on if the sending address has been claimed.
 4. If the ReceiverRoot validates the signatures and there are enough funds, it holds the funds and forwards the transaction to its other neighbouring root nodes.
 5. They also validate the transaction. If it's valid, they sign the transaction, hold the funds, and send the signature back to ReceiverRoot.
 6. ReceiverRoot now has a collection of signatures. If it gets a majority of root signatures, it forwards the transaction and the set of signatures to all other root nodes.
@@ -20,7 +20,7 @@ This is the flow of a transaction within a single root.
 
 7. Provided each node agrees that a majority was achieved through verifying the signature set, the receiving balance is updated and the funds are removed from holding.
 8. The transaction is broadcast out of the root as a completed transaction.
-9. The receiving bank sees a transaction has occured on a public address they had previously given out in step 1.
+9. The receiving bank sees a transaction has occurred on a public address they had previously given out in step 1.
 10. That bank may now publically claim the address, using its private key as proof of ownership.
 
 External Root Transaction
@@ -34,7 +34,7 @@ This is the flow of a transaction from one root to another.
 10. The remote root verifies all the signatures and confirms that a majority was achieved. The receiving balance is updated.
 11. The transaction is broadcast out of the remote root as a completed transaction. The remote root informs the sending root that the transaction was successful and the pending transaction is removed from the outbound set.
 
-In the event of a link failure, the sending root tries again, with a flag stating that this transaction is being repeated. If this flag is set, the remote root checks to see if the same transaction had been processed before by looking it up in it's transaction history. If it had been processed before, the remote root simply informs that the transaction has been completed.
+In the event of a link failure, the sending root tries again, with a flag stating that this transaction is being repeated. If this flag is set, the remote root checks to see if the same transaction had been processed before by looking it up in its transaction history. If it had been processed before, the remote root simply informs that the transaction has been completed.
 
 .. _ecdsaRandom:
 
@@ -52,5 +52,5 @@ Address Claims
 
 Addresses can be optionally claimed by the owning bank. This exchanges some of their privacy in favour of more security, as a claimed address has a known owning bank yet simultaneously only that same bank will then be allowed to perform a transaction with that address. In effect, if the bank has some of its address private keys leaked or stolen, the private keys can still only be used by that one bank.
 
-Claims must always happen after the first successful transaction into a new address. This essentially forces the root to publish it's anonymous transaction history; up until this point, the root does not know who needs to be notified when a particular transaction occurs. The transaction history must be published in order for the international community to verify the overall transaction system, in effect, to ensure that value has not been created or destroyed by anyone other than a particular commodities issuer.
+Claims must always happen after the first successful transaction into a new address. This essentially forces the root to publish its anonymous transaction history; up until this point, the root does not know who needs to be notified when a particular transaction occurs. The transaction history must be published in order for the international community to verify the overall transaction system, in effect, to ensure that value has not been created or destroyed by anyone other than a particular commodities issuer.
 
