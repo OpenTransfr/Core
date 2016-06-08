@@ -1,4 +1,4 @@
-:: terminals_:
+:: _terminals:
 
 Terminals
 =========
@@ -7,11 +7,11 @@ A terminal is defined as a point where a merchant wants to take a payment. There
 
 **Note:** All terminals on the OpenTransfr network *do not* actually handle a payment or bank details. See the individual terminal types to see how they work and why.
 
-::ref:`Spoken Terminals<spokenTerminal>`
+::ref:`Spoken Terminals<_spokenTerminal>`_
     For example, over the phone.
 
-::ref:`Online<onlineTerminal>`
+::ref:`Online<_onlineTerminal>`_
     For when you're buying/ selling something on the internet.
 
-::ref:`Point of sale<PosTerminal>`
+::ref:`Point of sale<_PosTerminal>`_
     For buying/ selling at a bricks-and-mortar location.

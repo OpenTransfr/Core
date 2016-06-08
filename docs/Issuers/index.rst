@@ -3,19 +3,35 @@
 Issuer
 ======
 
-Issuers define a commodity and issue them onto the network. There is only ever *one issuer per commodity*. This is so it can guarentee a withdrawal from the network, but more on that later. Usually, anyone can be an issuer but there are some special exceptions. For example, traditional currencies are restricted - the central bank that normally issues the currency decides who issues it on the network. In most cases, the central bank itself is the best issuer. However, you can create your own virtual currency or commodity and issue it however you want.
+Issuers define a commodity_ and issue it onto the network. There is only ever *one issuer per commodity* and they are the ultimate source of all value.
+
+Creating a commodity
+--------------------
+
+Without going into too much detail about commodities themselves, each commodity has it's own tag; for example, 'currency.eur' or 'currency.gbp'. An issuer registers a tag by sending a create request to the current holder of the *parent* tag (in the previous examples, that's the holder of the 'currency' tag). At this point an important note is required: When the parent tag grants a sub tag, it has no authority over the sub tag. Or in other words, 'currency' is not a point of failure. Depending on the parent tags *policy*, sub tag requests may be granted instantly or after a review process. For example, 'currency.something' requires a review; 'virt.something' does not, as 'virt' is open for all. An implementation of this can be found at https://txroot.opentrans.fr/#screen=commodity.create - it essentially finds the holder of a parent tag, then submits the request there.
+
+Sub tag reviews
+---------------
+
+Major parent tags such as 'currency' will always perform reviews on sub tag requests. A review essentially involves checking if a particular issuer has the right to issue a particular commodity. For example, a random user may request to issue a major currency that is currently not being issued. It is of course in the best interests of everyone that the Central Bank of that currency is it's issuer, or at the very least chooses who will issue it. If an issuer wishes to allow sub tags, it is that issuer that performs the review, and they may optionally charge a fee. Major top level tags such as 'currency' itself are intended to be owned and reviewed by, for example, the Bank for International Settlements.
+
+Direct Benefits
+---------------
+
+The most notable advantage to issuers is the ability to see all circulation in action, international included, and respond accordingly. No form of mining is required so creating a currency is both easier and more secure than it is today. Central Banks are still required to play an ongoing and important role in the global financial system.
 
 Issuing Vouchers
 ----------------
 
-Vouchers are considered a form of commidity too which allows them to sit in a users bank account. This avoids the need for merchants to implement an account balance system. Vouchers use the same token system as other forms of issuing, and they essentially work as follows:
+Vouchers are considered a form of commidity too which allows them to sit in a users bank account. This avoids the need for merchants to implement an account balance system; a merchant simply declares through merchant services that they accept those vouchers.
 
-- Voucher purchaser performs a transfer to the voucher issuer
-- The voucher issuer responds with a token (Essentially the voucher itself). This token would most likely be printed.
-- The claimer calls the redeem API with a public key to claim into and their token
-- The issue then occurs into the given public key
+Issuing Votes
+-------------
 
-Anonymous issuing
------------------
+The network has many properties which are favourable to a political voting system. For example, transparency, anonymity within the root and the ability for anyone to view transactions live. If we view votes as a kind of currency, and the action of voting for something is a transfer, an interesting usage of the network begins to emerge. Any form of Electoral Commission (or anyone who wishes to run a vote) could be an issuer of votes. However, there are a few key components that would be required in order for such a system to be widely possible:
 
-The network has many properties which are favourable to a political voting system. For example, transparency, anonymity within the root and the ability for anyone to view transactions live. If we view votes as a kind of currency, and the action of voting for something is a transfer, an interesting usage of the network begins to emerge. However, there are a few key components that would be required in order for such a system to be widely possible. A Government (or anyone who wishes to run a vote) would be the issuer of votes, and would need to only issue them to users who are eligible to vote. Issuers always issue to a public address, however, as the flow of transactions from that public address are clearly visible, this would expose exactly who a particular user voted for to the Government. In order to avoid exposing this, anonymous issuing is required.
+- A user must not be able to prove who they voted for.
+- No intermediate node must be able to prove who someone voted for.
+- As with postal votes, it is not possible to achieve complete voter anonymity without compromising on eligibility.
+
+However, this particular use case is currently entirely academic; although it is considered, it does not currently play an active role in the design of the system.

@@ -32,6 +32,6 @@ Note that root nodes *must not* provide the API over HTTP. If it receives a requ
 API Functionality
 -----------------
 
-The API is designed to be self documenting, meaning the API directly exposes the functions available and provides examples on how they are used, as well as defining the types that it can generate or use. An example implementation of the API can be found at:
+The API has the same structure as the other APIs and is designed to be self documenting, meaning the API directly exposes the functions available and provides examples on how they are used, as well as defining the types that it can generate or use. An example implementation of the API can be found at:
 
 https://txroot.opentrans.fr/v1/

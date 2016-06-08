@@ -9,7 +9,7 @@ Often there are cases where a person needs to pay for something over the phone a
 - The operator could easily take a copy of the details
 - Someone nearby could overhear you saying them
 
-So, to fix these, we need to turn it around. Rather than the merchant authorising the transaction on behalf of the user, the user *always* authorises transactions.
+So, to fix these, we need to turn it around. Rather than the merchant authorising the transaction on behalf of the user, the user *always* authorises ('pushes') transactions.
 
 How it works
 ============
@@ -26,4 +26,4 @@ Essentially the merchant simply provides a digital summary of what is to be paid
 Terminal Codes
 ==============
 
-All terminals have a short code which can be entered into the users device to retrieve that summary. The shortest possible codes (4 characters and less) are reserved specifically for spoken use and are 'pooled' so they are continually being recycled.
+All terminals have a short code which can be entered into the users device to retrieve that summary. The shortest possible codes (6 characters and less) are reserved specifically for spoken use and are 'pooled' so they are continually being recycled.

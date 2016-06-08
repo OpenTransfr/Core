@@ -1,7 +1,7 @@
 Merchants
 =========
 
-Merchants have an ordinary bank account like anyone else, except they simply use the ::ref`terminal<_terminals>` functionality to receive payments. In order to make tax considerably simpler and potentially entirely automated, all payments are categorised such that all the required information for tax purposes can be found on the bank statement.
+Merchants have an ordinary bank account like anyone else, except they simply use the ::ref:`terminal<_terminals>`_ functionality to receive payments. In order to make tax considerably simpler and potentially entirely automated, all the required information for tax purposes can be found on the bank statement.
 
 Salaries/ Wages
 ---------------
