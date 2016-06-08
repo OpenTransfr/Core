@@ -1,0 +1,49 @@
+{
+	"type":"type",
+	"description":{
+		"en":"Contains a list of entries in JSON format. These lists can be huge, so there are some features to help making parsing big lists very easy. See field 'locations.cp' first. You can totally ignore those features (checkpoints) if you've got enough memory to parse the file as-is. Note that they don't contain tabs, newlines or spaces."
+	},
+	"content":{
+		"fields":{
+			"type":"object",
+			"description":{
+				"en":"The mapping of field name to its array index in the row. Always at the very start of the file. The rows are square bracket arrays (non-associative)."
+			}
+		},
+		"row_blocks":{
+			"type":"array",
+			"description":{
+				"en":"The actual rows grouped up into blocks (a set of sets of rows). Each row is a square bracket array too (non-associative). row[fields['fieldName']] is how you access fieldName in a given row. The blocks help deal with really large JSON files using ordinary JSON parsers - each block has a checkpoint."
+			}
+		},
+		"checkpoints":{
+			"type":"array",
+			"description":{
+				"en":"A set of checkpoints. Each checkpoint is a byte location in the file, typically spaced by 1MB of JSON. They are placed immediately before a block of rows. ..[row h]],^[[row i],[row j],.. where ^ is the location of the checkpoint. This set of checkpoints is always at the end of the file. To get to where the checkpoints set is, see locations.cp."
+			}
+		},
+		"locations":{
+			"type":"object",
+			"description":{
+				"en":"A set of locations which help find the field set and the checkpoints set. Always at the very end of the file, after checkpoints."
+			},
+			"content":{
+				
+				"f":{
+					"type":"number",
+					"description":{
+						"en":"The location of the fields header. This is actually constant (10) as the fields set is always in the exact same place, but it's provided here for convenience."
+					}
+				},
+				
+				"cp":{
+					"type":"number",
+					"description":{
+						"en":"This is always at the very end of the file, followed only by }}. It's the exact byte location of the start of the checkpoints set. Get the last ~20 bytes of the file, get this cp location from it, seek to the checkpoints set, parse it, then visit each checkpoint parsing the block of rows following it. The only requirement of the JSON parser is that it terminates when it has fully balanced tags."
+					}
+				}
+			}
+		}
+	},
+	"example":{"fields":{"Key":0,"Type":1,"Endpoint":2,"Group":3,"Name":4,"Country":5},"rows":[[["BPJbgYj7h7DlQeJyuvPxYO1C/EHxt33Hqg55FnP+hONbzCduUyj+0KaJ35LcEe7AHHZxXrs3YJ/ObkH6qjyKCj0=","5","txroot.opentrans.fr","1","OpenTransfr Testing Root","0"],["BCaZk55j1ZIMi5gnC4jb7ergd//R4riR7j9XYSP1G8nvFWSsyeKOnywAXK/4YJvlbSc1tBLaIq8/xXUHP0aQnj4=","4","bank.opentrans.fr","1","OpenBank","0"]]],"checkpoints":[81],"locations":{"f":10,"cp":388}}
+}

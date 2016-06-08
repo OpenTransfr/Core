@@ -1,0 +1,25 @@
+{
+	"type":"type",
+	"description":{
+		"en":"Used when the API has errored."
+	},
+	"content":{
+		"type":{
+			"type":"type",
+			"description":{
+				"en":"The type of error that occured."
+			}
+		},
+		"args":{
+			"type":"array",
+			"optional":true,
+			"description":{
+				"en":"Additional arguments for the error that occured."
+			}
+		}
+	},
+	"example":{
+		"type":"error/field/missing",
+		"args":["entity"]
+	}
+}

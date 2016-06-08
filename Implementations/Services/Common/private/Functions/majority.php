@@ -16,7 +16,16 @@ function testMajority($results,$signedData,$myPair=null,$inGroup=null,$error=tru
 	
 	// Get the set of root public keys, indexed by endpoint. Note that they are raw bytes:
 	$publicKeys=getRootKeys($inGroup);
-
+	
+	// How many are there?
+	$nodesInRoot=count($publicKeys);
+	
+	if($nodesInRoot<3){
+		// This root isn't big enough. It's not able to obtain a majority.
+		return false;
+	}
+	
+	
 	// The number of root nodes that we have successfully verified a response from.
 	
 	// The JSON to forward to other nodes. This only occurs when myPair is not null (which indicates
@@ -89,7 +98,7 @@ function testMajority($results,$signedData,$myPair=null,$inGroup=null,$error=tru
 	}
 
 	// The important check occurs here - do we have a majority? Must be greater than half.
-	if($verifiedCount > (count($publicKeys)/2)){
+	if($verifiedCount > ($nodesInRoot/2)){
 		
 		// Majority formed!
 		if($fullSet==''){

@@ -7,6 +7,7 @@ Network Components
 
    Transactions
    Consensus
+   Comparisons
    Issuers/index.rst
    Commodities/index.rst
    Banks/index.rst

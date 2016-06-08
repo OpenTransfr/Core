@@ -1,0 +1,47 @@
+{
+	"type":"type",
+	"description":{
+		"en":"Used as a successful response from the entity/check function."
+	},
+	"content":{
+		"entity":{
+			"type":"string",
+			"description":{
+				"en":"The ID of the entity with this regulator."
+			}
+		},
+		"url":{
+			"type":"string",
+			"description":{
+				"en":"A URL of a page hosted by the regulator which displays more information about a particular entity."
+			}
+		},
+		"details":{
+			"type":"object",
+			"optional":true,
+			"description":{
+				"en":"Contains information about this entity held by the regulator. A regulator may return whatever they wish here; there may be field name/ structure recommendations in the future depending on what information is generally available."
+			}
+		},
+		"permissions":{
+			"type":"object",
+			"description":{
+				"en":"The set of group permissions that the entity has. The primary example is the 'root' permission which describes if an entity may join the root or not, and how long the delay for a join is (in seconds; must be at least 5 days)."
+			}
+		}
+	},
+	"example":{
+		"entity":"12345678",
+		"url":"https://register.fca.org.uk/ShPo_FirmDetailsPage?id=12345678",
+		"details":{
+			"name":"Bank Ltd",
+			"address":"1 High Street, L1N D0N"
+		},
+		"permissions":{
+			"root":{
+				"join":true,
+				"delay":432000
+			}
+		}
+	}
+}
