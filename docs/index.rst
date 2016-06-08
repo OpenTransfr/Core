@@ -14,7 +14,9 @@ This documentation describes the structure of all parts of the network in depth.
 What is OpenTransfr?
 --------------------
 
-OpenTransfr is a design for a payment system built to handle currencies and commodities that you see and use everyday such as the Pound Sterling or the US dollar. Its primary goals are to be free, fast and open to everyone to allow as much innovation as possible in the financial sector. This system takes concepts from cryptocurrency networks and combines them with traditional systems to create a hybrid that works for everyone. This brings up two questions - why do we need new transaction systems, and what's wrong with cryptocurrencies?
+OpenTransfr is a design for a complete financial system. It's an end-to-end design meaning that it covers everything from the parts consumers interact with everyday through to the payment network behind the scenes. By designing it end-to-end like this, it helps the system be as consumer friendly as possible as the internals are being constantly pushed forward by the consumer facing front ends. This helps with future proofing too - for example, banks that support delivery addresses that are suitable for use by drones, payments that can be made from self-driving cars, and a financial system that works between Earth, Mars and beyond.
+
+The system is built to handle currencies and commodities that you see and use everyday such as the Pound Sterling or the US dollar. Its primary goals are to be free, fast and open to everyone to allow as much innovation as possible in the financial sector. This system takes concepts from cryptocurrency networks and combines them with traditional systems to create a hybrid that works for everyone. This brings up two questions - why do we need new transaction systems, and what's wrong with cryptocurrencies?
 
 Why do we need a new system?
 ----------------------------
@@ -160,7 +162,7 @@ The 5 major components (Bank, Root, Merchant, Issuer, Regulator) have in progres
 'Free'?
 -------
 
-OpenTransfr itself does not charge any fees or define any form of interchange fee. However, many banks may need time to adjust to a different revenue system, so:
+Free as in no network fees and free as in free software (MIT). OpenTransfr itself does not charge any fees or define any form of interchange fee. However, many banks may need time to adjust to a different revenue system, so:
 
 - Merchant prices almost always include the transaction fees that they pay. So, it's recommended for merchants to provide a small discount for users paying using this network. The merchant still saves money as they don't need any form of monthly payments to a gateway service or any form of custom hardware.
 - The sending bank is able to charge a self-defined fee if they wish, although it's not recommended. These fees can only be defined as a % with a set limit which rounds down. For example, "0.12% up to £1". This fee is taken out of the discount.
