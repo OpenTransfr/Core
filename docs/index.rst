@@ -110,8 +110,7 @@ In order to help better understand how the system actually works, let's describe
 **Consumers Bank**:
 
 7. The consumer authenticates with the device (e.g. a pin or biometrics), decrypting a private key. The device authenticates with the bank using a signature made with the private key.
-8. The consumers bank obtains the checkout information from the merchant services using the checkout code, essentially acting as a digital receipt.
-8. (During above). The merchant services sends the merchants username along with checkout information to the receiving bank and gets a new address to send the payment to.
+8. The consumers bank obtains the checkout information from the merchant services using the checkout code, essentially acting as a digital receipt. The merchant services also sends the merchants username along with checkout information to the receiving bank and gets a new address to send the payment to.
 9. The consumers bank displays the total to pay to the consumer.
 10. The consumer accepts it and, provided they have enough funds, the bank submits the payment to the root it's in.
 
