@@ -92,6 +92,7 @@ Following a payment from end to end
 In order to help better understand how the system actually works, let's describe the full chain of events that occurs when someone makes a typical payment in a bricks and mortar store, grouped up by the type of entity that is involved:
 
 **Issuer**:
+
 1. At some point in the past, a currency is spontaneously created on the network by it's issuer. The issuer is usually a Central Bank.
 2. The issuer then would typically swap the cryptographic version of their currency for the traditional one with a Bank. How they approach this entirely depends on the issuers policies.
 3. Banks now have reserves of the cryptocurrency form. They can internally manage these reserves as they wish (i.e. in essentially the same way they already do).
@@ -99,6 +100,7 @@ In order to help better understand how the system actually works, let's describe
 .. image:: images/Merchant-Overview.png
 
 **Merchant Services**:
+
 4. A user who has a bank account capable of using this system arrives at a checkout and wishes to pay. The checkout has a globally unique ID which is represented as a short textual code.
 5. The merchant scans the products like normal and then upload the information to a merchant service, relating it to the checkout ID.
 6. The consumers device (intended to be, but not limited to, a smartphone) obtains the checkout code and forwards it to their bank.
@@ -106,6 +108,7 @@ In order to help better understand how the system actually works, let's describe
 *Note: The current reference implementation uses QR codes for stage 6; it is by no means limited to that however.*
 
 **Consumers Bank**:
+
 7. The consumer authenticates with the device (e.g. a pin or biometrics), decrypting a private key. The device authenticates with the bank using a signature made with the private key.
 8. The consumers bank obtains the checkout information from the merchant services using the checkout code, essentially acting as a digital receipt.
 (During 8). The merchant services sends the merchants username along with checkout information to the receiving bank and gets a new address to send the payment to.
@@ -115,6 +118,7 @@ In order to help better understand how the system actually works, let's describe
 *Note: 7,8 and 9 all occur in parallel*.
 
 **Root**:
+
 11. Consensus occurs. The receiving root node forwards the request to other roots, they each sign it, and the signature collection is then sent to all root nodes and tested for majority.
 12. Provided consensus was reached, a payment to the address is broadcast out of the root. The bank and the users device are informed simply by the response.
 
@@ -123,6 +127,7 @@ In order to help better understand how the system actually works, let's describe
 *Note: 11 can occur twice if the transaction goes between two different roots (the sending root then the receiving root both form majorities)*.
 
 **Receiving Bank**:
+
 13. The receiving bank, as well as the merchant services, know which payment the address relates to (due to stage 8).
 14. Merchant services inform the checkout of the successful payment. Transaction complete!
 
@@ -130,6 +135,7 @@ Online? Over the phone?
 -----------------------
 
 They work in mostly the same way. The checkout code is simply allocated differently:
+
 - Online it's dynamically created essentially acting just like a hosted shopping cart.
 
 .. image:: images/Over-The-Phone.png
