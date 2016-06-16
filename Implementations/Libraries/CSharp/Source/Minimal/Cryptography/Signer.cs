@@ -86,8 +86,8 @@ namespace OpenTransfr{
 		public static byte[] SignHash(byte[] data,byte[] priv){
 			
 			ECDsaSigner signer = new ECDsaSigner();
-			ECPublicKeyParameters curParams = new ECPublicKeyParameters(_ecParams.Curve.DecodePoint(priv), _ecParams);
-			signer.Init(false, curParams);
+			ECPrivateKeyParameters curParams = new ECPrivateKeyParameters(new BigInteger(priv), _ecParams);
+			signer.Init(true, curParams);
 			
 			// Generate the signature (produces the r and s values):
 			BigInteger[] rs=signer.GenerateSignature(data);
